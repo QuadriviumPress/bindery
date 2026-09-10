@@ -1,37 +1,36 @@
-# Fleet git commands
+# Quire git commands
 
 Run everyday git operations across **every QuadriviumPress repo checked out locally** — the sibling
 clones that live beside `bindery` in the workspace (`pull all`, `push all`, `status all`, …).
 
+Named `quire` (a gathered set of sheets ready for binding) so it can sit on your `PATH`
+alongside [OpenPhysics/Baton](https://github.com/OpenPhysics/Baton)'s `fleet`.
+
 ## The short version
 
-[`scripts/fleet`](../scripts/fleet) runs any git command across every local catalog checkout:
+[`scripts/quire`](../scripts/quire) runs any git command across every local catalog checkout:
 
 ```bash
-fleet push
-fleet pull --ff-only
-fleet status -s
-fleet --book log -1 --oneline
+quire push
+quire pull --ff-only
+quire status -s
+quire --book log -1 --oneline
 ```
 
 Put it on your `PATH` once (symlink is enough if `~/.local/bin` is already there):
 
 ```bash
-ln -sfn ~/QuadriviumPress/bindery/scripts/fleet ~/.local/bin/fleet
+ln -sfn ~/QuadriviumPress/bindery/scripts/quire ~/.local/bin/quire
 ```
 
-Or call it as `bindery/scripts/fleet …` / `scripts/fleet …` from the bindery directory.
-
-> If you also use [OpenPhysics/Baton](https://github.com/OpenPhysics/Baton)'s `fleet`, only one
-> symlink can own `~/.local/bin/fleet` at a time — re-point it when you switch orgs, or call the
-> scripts by path.
+Or call it as `bindery/scripts/quire …` / `scripts/quire …` from the bindery directory.
 
 These operate on your **local working trees**. A related tool covers a different job:
 
 | You want to… | Use |
 |---|---|
 | Update / clone every catalog repo into the workspace | [`scripts/clone-fleet.sh --update`](../scripts/clone-fleet.sh) |
-| Run an ad-hoc git command across your local checkouts | [`scripts/fleet`](../scripts/fleet) (below) |
+| Run an ad-hoc git command across your local checkouts | [`scripts/quire`](../scripts/quire) (below) |
 
 ---
 
@@ -40,11 +39,11 @@ These operate on your **local working trees**. A related tool covers a different
 Same catalog filters as the rest of the tooling:
 
 ```bash
-fleet --book status -s                # books/bundles only
-fleet --lineage openstax-remix status -s
-fleet --type tool branch -vv          # tools only
-fleet --no-book fetch --all           # everything that isn't a book
-fleet --format myst status -s
+quire --book status -s                # books/bundles only
+quire --lineage openstax-remix status -s
+quire --type tool branch -vv          # tools only
+quire --no-book fetch --all           # everything that isn't a book
+quire --format myst status -s
 ```
 
 > Without a filter the list includes `bindery` and `.github` too. Add `--book` if you want to
@@ -57,7 +56,7 @@ fleet --format myst status -s
 **Status of all repos:**
 
 ```bash
-fleet status -s
+quire status -s
 ```
 
 **Branch + dirty-count overview** — quick "where is everything" snapshot (custom format,
@@ -81,38 +80,38 @@ scripts/clone-fleet.sh --update
 Or, to pull only what's already on disk (no new clones):
 
 ```bash
-fleet pull --ff-only
+quire pull --ff-only
 ```
 
 **Fetch all** (update remotes without touching working trees):
 
 ```bash
-fleet fetch --all --prune
+quire fetch --all --prune
 ```
 
 **Push all** — pushes the current branch of each repo. Pushing writes to remotes, so review with
-`fleet status -s` first. `git push` is a no-op for repos with nothing to push:
+`quire status -s` first. `git push` is a no-op for repos with nothing to push:
 
 ```bash
-fleet push
+quire push
 ```
 
 For a brand-new local branch, set the upstream the first time:
 
 ```bash
-fleet push -u origin HEAD
+quire push -u origin HEAD
 ```
 
 **Create the same branch everywhere:**
 
 ```bash
-fleet checkout -b chore/my-change
+quire checkout -b chore/my-change
 ```
 
 **Last commit per repo:**
 
 ```bash
-fleet log -1 --oneline
+quire log -1 --oneline
 ```
 
 ---
@@ -120,7 +119,7 @@ fleet log -1 --oneline
 ## The building block
 
 [`parse-repos.sh paths --require-local`](../scripts/parse-repos.sh) prints the on-disk path of
-every catalog repo that actually exists in your workspace. `scripts/fleet` is a thin wrapper
+every catalog repo that actually exists in your workspace. `scripts/quire` is a thin wrapper
 around that; use the loop directly when you need something that isn't a plain `git` invocation:
 
 ```bash
@@ -139,7 +138,7 @@ done
   `push`, and `checkout` change state; eyeball a status overview before a bulk `push`.
 - **`pull --ff-only`** refuses to create merge commits, so a repo with diverged local work fails
   loudly instead of silently merging. Resolve those repos by hand.
-- **Non-zero exit if any repo fails.** `fleet` keeps going after a failure, then exits `1` if
+- **Non-zero exit if any repo fails.** `quire` keeps going after a failure, then exits `1` if
   any repo's git command failed — scan the output for which ones.
 - **Workspace location.** Scripts assume `bindery` sits beside the member repos. If your checkout
   differs, set `QUADRIVIUM_WORKSPACE` or pass `--catalog /path/to/repos.json`.

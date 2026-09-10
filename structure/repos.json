@@ -26,7 +26,7 @@
       "source": null,
       "format": null,
       "language": ["Shell", "JavaScript", "JSON"],
-      "description": "Orchestration repository for the QuadriviumPress organization: the reusable CI/CD workflows every book calls, the machine-readable repository catalog, fleet scripts, and the GitHub Pages book index.",
+      "description": "Orchestration repository for the QuadriviumPress organization: the reusable CI/CD workflows every book calls, the machine-readable repository catalog, quire and clone-fleet scripts, and the GitHub Pages book index.",
       "deployedUrl": "https://quadriviumpress.github.io/bindery/",
       "subjectTopics": [],
       "status": "active"

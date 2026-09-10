@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Run a git command across every QuadriviumPress repo checked out locally.
 #
-# Memorable shortcuts for the fleet-git one-liners in doc/fleet-git.md:
-#   fleet push
-#   fleet pull --ff-only
-#   fleet status -s
-#   fleet --book log -1 --oneline
+# Memorable shortcuts for the quire-git one-liners in doc/quire-git.md:
+#   quire push
+#   quire pull --ff-only
+#   quire status -s
+#   quire --book log -1 --oneline
 set -euo pipefail
 
-# Resolve symlinks so `~/.local/bin/fleet` still finds sibling scripts.
+# Resolve symlinks so `~/.local/bin/quire` still finds sibling scripts.
 SOURCE="${BASH_SOURCE[0]}"
 while [[ -L "$SOURCE" ]]; do
   DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
 
 usage() {
   cat <<'EOF'
-Usage: fleet [filters] <git-args...>
+Usage: quire [filters] <git-args...>
 
 Run a git command in every catalog repo that exists locally beside bindery.
 
@@ -34,14 +34,14 @@ Filters (same as parse-repos.sh):
   -h, --help          Show this help
 
 Examples:
-  fleet push
-  fleet pull --ff-only
-  fleet status -s
-  fleet fetch --all --prune
-  fleet --book log -1 --oneline
-  fleet --type tool branch -vv
+  quire push
+  quire pull --ff-only
+  quire status -s
+  quire fetch --all --prune
+  quire --book log -1 --oneline
+  quire --type tool branch -vv
 
-See also: doc/fleet-git.md, scripts/clone-fleet.sh
+See also: doc/quire-git.md, scripts/clone-fleet.sh
 EOF
 }
 
@@ -73,8 +73,8 @@ while [[ $# -gt 0 ]]; do
       break
       ;;
     -*)
-      # Unknown dashed arg: treat as the start of git args (e.g. fleet -C is wrong;
-      # fleet status -s is handled once we leave the filter loop).
+      # Unknown dashed arg: treat as the start of git args (e.g. quire -C is wrong;
+      # quire status -s is handled once we leave the filter loop).
       GIT_ARGS+=("$@")
       break
       ;;
