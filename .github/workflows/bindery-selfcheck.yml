@@ -1,0 +1,49 @@
+# Validate bindery's own invariants: catalog schema, shell syntax, and that
+# docs/index.html is up to date with structure/repos.json.
+name: Bindery self-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selfcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate catalog
+        run: scripts/check-repos-catalog.sh
+
+      - name: Shell syntax check
+        run: |
+          shopt -s globstar
+          for f in scripts/**/*.sh; do
+            echo "bash -n $f"
+            bash -n "$f"
+          done
+
+      - name: Validate Claude plugin marketplace
+        run: python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
+
+      - name: docs/index.html is up to date
+        run: |
+          cp docs/index.html /tmp/index.html.before
+          scripts/generate-pages-index.sh
+          diff -u /tmp/index.html.before docs/index.html || {
+            echo "::error::docs/index.html is stale -- run scripts/generate-pages-index.sh and commit the result."
+            exit 1
+          }

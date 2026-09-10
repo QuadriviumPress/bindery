@@ -1,0 +1,5 @@
+{
+  "name": "quadrivium",
+  "description": "Shared authoring conventions for QuadriviumPress open textbooks: MyST directives, chapter/front-matter structure, and source attribution.",
+  "version": "1.0.0"
+}

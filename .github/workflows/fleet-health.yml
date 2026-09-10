@@ -1,0 +1,53 @@
+# Weekly build-health check: does every active book still build with its
+# catalog build recipe? Read-only -- surfaces books broken by an upstream
+# dependency bump before someone notices the live site went stale.
+name: Fleet build health
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # Mondays 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      books: ${{ steps.list.outputs.books }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          books="$(jq -c '[.repos[] | select(.status == "active" and .isBook == true) | {name, installCommand: .build.installCommand, buildCommand: .build.buildCommand}]' structure/repos.json)"
+          echo "books=$books" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        book: ${{ fromJson(needs.matrix.outputs.books) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: QuadriviumPress/${{ matrix.book.name }}
+
+      - uses: actions/setup-node@v4
+        if: hashFiles('package.json') != ''
+        with:
+          node-version: "22"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        if: hashFiles('requirements.txt', 'pyproject.toml') != ''
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: ${{ matrix.book.installCommand }}
+
+      - name: Build
+        run: ${{ matrix.book.buildCommand }}

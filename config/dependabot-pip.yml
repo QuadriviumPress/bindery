@@ -1,0 +1,10 @@
+# Canonical Dependabot config for a QuadriviumPress book repo that also pins
+# Python tooling (MyST figure-generation scripts, verify_book.py, etc). Merge
+# the pip block into the repo's .github/dependabot.yml alongside npm.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10

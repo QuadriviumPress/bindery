@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quadriviumpress.github.io/bindery/structure/repos.schema.json",
+  "title": "QuadriviumPress repository catalog",
+  "description": "Machine-readable catalog of QuadriviumPress organization repositories. Consumed by clone-fleet, the compliance check, fleet-health, and the Pages landing page.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "organization", "repos"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional pointer to this schema file (relative or absolute)."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Catalog schema semver. Bump when field semantics change."
+    },
+    "organization": {
+      "type": "string",
+      "const": "QuadriviumPress"
+    },
+    "repos": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/repo" }
+    }
+  },
+  "$defs": {
+    "repo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "displayName",
+        "type",
+        "isBook",
+        "lineage",
+        "source",
+        "format",
+        "language",
+        "description",
+        "deployedUrl",
+        "subjectTopics",
+        "status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GitHub repository name (and sibling workspace folder)."
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable title for landing-page cards and docs."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["book", "bundle", "tool", "config", "site"],
+          "description": "bundle = a repo publishing more than one volume/edition (e.g. an OpenStax bundle)."
+        },
+        "isBook": {
+          "type": "boolean",
+          "description": "Convenience filter; must equal (type == \"book\" or type == \"bundle\")."
+        },
+        "lineage": {
+          "description": "Provenance bucket for books; null for non-books.",
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "string",
+              "enum": ["original", "openstax-remix", "public-domain-adaptation"]
+            }
+          ]
+        },
+        "source": {
+          "description": "The upstream work this edition is built from. Null for original QuadriviumPress work and for non-books.",
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/source" }
+          ]
+        },
+        "format": {
+          "description": "Build tooling / output format. Null for non-book repos that aren't sites either.",
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "string",
+              "enum": ["myst", "eleventy", "jekyll", "jupyter-book", "static-html"]
+            }
+          ]
+        },
+        "language": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full blurb for the Pages landing-page card (and docs)."
+        },
+        "shortDescription": {
+          "description": "Optional GitHub About blurb (<=350 chars). When omitted, sync tooling uses description (truncated).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 350
+        },
+        "deployedUrl": {
+          "description": "Canonical GitHub Pages URL, or the quadriviumpress.com vanity domain. Null when not deployed.",
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "uri" }
+          ]
+        },
+        "subjectTopics": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Subject-matter topics (physics, calculus, astronomy, music-theory, ...). First three appear on the Pages card."
+        },
+        "build": {
+          "description": "How the reusable ci.yml/deploy.yml should build this repo. Omitted for non-book repos.",
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/build" }
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "draft", "wip", "archived", "template"],
+          "description": "active = Pages + fleet-health; draft/wip = cataloged but not shipped; archived = retained history; template = seed repo."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "enum": ["book", "bundle"] } } },
+          "then": {
+            "properties": {
+              "isBook": { "const": true },
+              "lineage": { "type": "string", "enum": ["original", "openstax-remix", "public-domain-adaptation"] },
+              "format": { "type": "string", "enum": ["myst", "eleventy", "jekyll", "jupyter-book", "static-html"] }
+            }
+          },
+          "else": {
+            "properties": {
+              "isBook": { "const": false },
+              "lineage": { "type": "null" },
+              "source": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "lineage": { "enum": ["openstax-remix", "public-domain-adaptation"] } }
+          },
+          "then": {
+            "properties": {
+              "source": { "$ref": "#/$defs/source" }
+            }
+          },
+          "else": {
+            "properties": {
+              "source": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["author", "title", "url", "license"],
+      "properties": {
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Original author(s) or publisher (e.g. \"OpenStax\", \"Michael Corral\")."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Title of the upstream work."
+        },
+        "url": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "uri" }
+          ],
+          "description": "Canonical page for the upstream work, if known."
+        },
+        "license": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "minLength": 1 }
+          ],
+          "description": "Content license the edition ships under (e.g. \"CC BY 4.0\", \"CC BY-NC-SA 3.0\"). Null where not yet confirmed -- see doc/add-book.md."
+        }
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["installCommand", "buildCommand", "outputDir"],
+      "properties": {
+        "installCommand": { "type": "string", "minLength": 1 },
+        "buildCommand": { "type": "string", "minLength": 1 },
+        "outputDir": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

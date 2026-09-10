@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuadriviumPress books</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 72rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  h1 { margin-bottom: 0.25rem; }
+  .subtitle { opacity: 0.75; margin-top: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+  .card { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 0.75rem; padding: 1rem 1.25rem; }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+  .card h3 { margin: 0; font-size: 1.05rem; }
+  .card a { color: inherit; text-decoration: none; }
+  .card a:hover { text-decoration: underline; }
+  .card-desc { opacity: 0.85; font-size: 0.92rem; }
+  .card-source { font-size: 0.85rem; opacity: 0.7; margin: 0.25rem 0; }
+  .card-topics { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0.5rem 0 0; }
+  .card-topics li { font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 999px; background: color-mix(in srgb, currentColor 10%, transparent); }
+  .badge { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; white-space: nowrap; background: color-mix(in srgb, currentColor 12%, transparent); }
+  footer { margin-top: 3rem; font-size: 0.8rem; opacity: 0.6; }
+</style>
+</head>
+<body>
+<h1>QuadriviumPress</h1>
+<p class="subtitle">25 open textbooks, generated from <a href="../structure/repos.json">structure/repos.json</a>.</p>
+<div class="grid">
+<article class="card" data-name="astronomy">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/astronomy/">Astronomy 2e</a></h3>
+    <span class="badge badge-openstax-remix">OpenStax remix</span>
+  </header>
+  <p class="card-desc">Eleventy HTML edition of OpenStax Astronomy 2e.</p>
+  <p class="card-source">After <cite>Astronomy 2e</cite> by OpenStax</p>
+  <ul class="card-topics"><li>astronomy</li></ul>
+</article>
+<article class="card" data-name="AtomicPhysicsForEveryone">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/AtomicPhysicsForEveryone/">Atomic Physics for Everyone</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of Atomic Physics for Everyone (Will Raven, Springer Open Access).</p>
+  <p class="card-source">After <cite>Atomic Physics for Everyone</cite> by Will Raven</p>
+  <ul class="card-topics"><li>physics</li><li>atomic-physics</li></ul>
+</article>
+<article class="card" data-name="calculus-bundle">
+  <header class="card-head">
+    <h3><a href="https://github.com/QuadriviumPress/calculus-bundle">Calculus Volumes 1-3</a></h3>
+    <span class="badge badge-openstax-remix">OpenStax remix</span>
+  </header>
+  <p class="card-desc">Eleventy HTML edition of OpenStax Calculus Volumes 1-3.</p>
+  <p class="card-source">After <cite>Calculus Volume 1</cite> by OpenStax</p>
+  <ul class="card-topics"><li>mathematics</li><li>calculus</li></ul>
+</article>
+<article class="card" data-name="college-physics-bundle">
+  <header class="card-head">
+    <h3><a href="https://github.com/QuadriviumPress/college-physics-bundle">College Physics 2e / AP Courses 2e</a></h3>
+    <span class="badge badge-openstax-remix">OpenStax remix</span>
+  </header>
+  <p class="card-desc">Eleventy HTML edition of OpenStax College Physics 2e and AP Courses 2e.</p>
+  <p class="card-source">After <cite>College Physics 2e</cite> by OpenStax</p>
+  <ul class="card-topics"><li>physics</li><li>college-physics</li></ul>
+</article>
+<article class="card" data-name="Dynamics_Textbook">
+  <header class="card-head">
+    <h3><a href="http://quadriviumpress.com/Dynamics_Textbook/">Dynamics Textbook</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of an open Dynamics textbook, following the upstream CC BY-NC-SA 4.0 licensing intent.</p>
+  <p class="card-source">After <cite>Dynamics</cite> by Lance Schonberg and Sarah Sadavoy</p>
+  <ul class="card-topics"><li>physics</li><li>dynamics</li><li>classical-mechanics</li></ul>
+</article>
+<article class="card" data-name="ElectromagneticsVolOneTextbook">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/ElectromagneticsVolOneTextbook/">Electromagnetics Vol. 1</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Eleventy web edition of Ellingson's Electromagnetics Vol. 1 (LaTeX source rendered to HTML).</p>
+  <p class="card-source">After <cite>Electromagnetics Vol. 1</cite> by Steven W. Ellingson</p>
+  <ul class="card-topics"><li>physics</li><li>electromagnetics</li></ul>
+</article>
+<article class="card" data-name="ElectromagneticsVolTwoTextbook">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/ElectromagneticsVolTwoTextbook/">Electromagnetics Vol. 2</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Eleventy web edition of Ellingson's Electromagnetics Vol. 2 (LaTeX source rendered to HTML).</p>
+  <p class="card-source">After <cite>Electromagnetics Vol. 2</cite> by Steven W. Ellingson</p>
+  <ul class="card-topics"><li>physics</li><li>electromagnetics</li></ul>
+</article>
+<article class="card" data-name="mecmath-elementary-calculus">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/mecmath-elementary-calculus/">Elementary Calculus</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Eleventy web edition of Michael Corral's Elementary Calculus (LaTeX source to HTML).</p>
+  <p class="card-source">After <cite>Elementary Calculus</cite> by Michael Corral</p>
+  <ul class="card-topics"><li>mathematics</li><li>calculus</li></ul>
+</article>
+<article class="card" data-name="differentialEquations">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/differentialEquations/">Elementary Differential Equations</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Elementary Differential Equations by William F. Trench.</p>
+  <p class="card-source">After <cite>Elementary Differential Equations</cite> by William F. Trench</p>
+  <ul class="card-topics"><li>mathematics</li><li>differential-equations</li></ul>
+</article>
+<article class="card" data-name="EnergyAndHumanAmbitions">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/EnergyAndHumanAmbitions/">Energy and Human Ambitions on a Finite Planet</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of Tom Murphy's Energy and Human Ambitions on a Finite Planet.</p>
+  <p class="card-source">After <cite>Energy and Human Ambitions on a Finite Planet</cite> by Tom Murphy</p>
+  <ul class="card-topics"><li>physics</li><li>energy</li><li>sustainability</li></ul>
+</article>
+<article class="card" data-name="thermodynamics">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/thermodynamics/">Engineering Thermodynamics</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST Markdown edition of Olivier Cleynen's Engineering Thermodynamics.</p>
+  <p class="card-source">After <cite>Engineering Thermodynamics</cite> by Olivier Cleynen</p>
+  <ul class="card-topics"><li>physics</li><li>thermodynamics</li></ul>
+</article>
+<article class="card" data-name="ClassicalMechanics">
+  <header class="card-head">
+    <h3><a href="http://quadriviumpress.com/ClassicalMechanics/">Essentials of Classical Mechanics</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Eleventy web edition of Ryan D. Martin's Essentials of Classical Mechanics (LaTeX source rendered to HTML).</p>
+  <p class="card-source">After <cite>Essentials of Classical Mechanics</cite> by Ryan D. Martin</p>
+  <ul class="card-topics"><li>physics</li><li>classical-mechanics</li></ul>
+</article>
+<article class="card" data-name="college-physics-textbook">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/college-physics-textbook/">General Physics Open Textbook</a></h3>
+    <span class="badge badge-original">Original edition</span>
+  </header>
+  <p class="card-desc">General Physics open textbook aiming to make algebra-based physics education accessible to everyone, licensed CC BY-NC-SA 4.0.</p>
+  
+  <ul class="card-topics"><li>physics</li><li>college-physics</li></ul>
+</article>
+<article class="card" data-name="modern-classical-mechanics">
+  <header class="card-head">
+    <h3><a href="http://quadriviumpress.com/modern-classical-mechanics/">Modern Classical Mechanics</a></h3>
+    <span class="badge badge-original">Original edition</span>
+  </header>
+  <p class="card-desc">An open collection of notes, activities, and computational resources for learning and teaching classical mechanics, built with MyST from Jupyter notebooks. Substantially revised from an earlier edition by Danny Caballero and contributors; this edition is not authored or endorsed by them.</p>
+  
+  <ul class="card-topics"><li>physics</li><li>classical-mechanics</li><li>computational-physics</li></ul>
+</article>
+<article class="card" data-name="modernPhysics">
+  <header class="card-head">
+    <h3><a href="http://quadriviumpress.com/modernPhysics/">Modern Physics</a></h3>
+    <span class="badge badge-original">Original edition</span>
+  </header>
+  <p class="card-desc">MyST Markdown original textbook: Modern Physics (relativity, quantum, atomic/molecular, nuclear/particle).</p>
+  
+  <ul class="card-topics"><li>physics</li><li>modern-physics</li><li>relativity</li></ul>
+</article>
+<article class="card" data-name="musicTheory">
+  <header class="card-head">
+    <h3><a href="https://github.com/QuadriviumPress/musicTheory">Open Music Theory</a></h3>
+    <span class="badge badge-original">Original edition</span>
+  </header>
+  <p class="card-desc">Textbook for music theory and aural skills.</p>
+  
+  <ul class="card-topics"><li>music-theory</li></ul>
+</article>
+<article class="card" data-name="opticsTextbook">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/opticsTextbook/">Optics Textbook</a></h3>
+    <span class="badge badge-original">Original edition</span>
+  </header>
+  <p class="card-desc">Interactive open textbook on optics for undergraduate physics and electrical-engineering students, licensed CC BY-SA 4.0.</p>
+  
+  <ul class="card-topics"><li>physics</li><li>optics</li></ul>
+</article>
+<article class="card" data-name="PrinciplesOfMechanics">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/PrinciplesOfMechanics/">Principles of Mechanics</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of Salma Alrasheed's Principles of Mechanics (Springer Open Access).</p>
+  <p class="card-source">After <cite>Principles of Mechanics</cite> by Salma Alrasheed</p>
+  <ul class="card-topics"><li>physics</li><li>classical-mechanics</li></ul>
+</article>
+<article class="card" data-name="QuantumComputingForTheQuantumCurious">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/QuantumComputingForTheQuantumCurious/">Quantum Computing for the Quantum Curious</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of Quantum Computing for the Quantum Curious (Hughes et al., Springer Open Access).</p>
+  <p class="card-source">After <cite>Quantum Computing for the Quantum Curious</cite> by Hughes et al.</p>
+  <ul class="card-topics"><li>physics</li><li>quantum-computing</li></ul>
+</article>
+<article class="card" data-name="physicsOfWaves">
+  <header class="card-head">
+    <h3><a href="http://quadriviumpress.com/physicsOfWaves/">The Physics of Waves</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST Markdown edition of The Physics of Waves by Howard Georgi.</p>
+  <p class="card-source">After <cite>The Physics of Waves</cite> by Howard Georgi</p>
+  <ul class="card-topics"><li>physics</li><li>waves</li></ul>
+</article>
+<article class="card" data-name="mecmath-trigonometry">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/mecmath-trigonometry/">Trigonometry</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">The free book Trigonometry, by Michael Corral (Schoolcraft College).</p>
+  <p class="card-source">After <cite>Trigonometry</cite> by Michael Corral</p>
+  <ul class="card-topics"><li>mathematics</li><li>trigonometry</li></ul>
+</article>
+<article class="card" data-name="UniversityPhysicsIClassicalMechanics">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/UniversityPhysicsIClassicalMechanics/">University Physics I: Classical Mechanics</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST edition of University Physics I: Classical Mechanics by Julio Gea-Banacloche.</p>
+  <p class="card-source">After <cite>University Physics I: Classical Mechanics</cite> by Julio Gea-Banacloche</p>
+  <ul class="card-topics"><li>physics</li><li>classical-mechanics</li></ul>
+</article>
+<article class="card" data-name="university-physics-bundle">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.github.io/university-physics-bundle/">University Physics Volumes 1-3</a></h3>
+    <span class="badge badge-openstax-remix">OpenStax remix</span>
+  </header>
+  <p class="card-desc">Eleventy HTML edition of OpenStax University Physics Volumes 1-3.</p>
+  <p class="card-source">After <cite>University Physics Volume 1</cite> by OpenStax</p>
+  <ul class="card-topics"><li>physics</li><li>university-physics</li></ul>
+</article>
+<article class="card" data-name="variationalPrinciples">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/variationalPrinciples/">Variational Principles in Classical Mechanics</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">MyST Markdown edition of Douglas Cline's Variational Principles in Classical Mechanics.</p>
+  <p class="card-source">After <cite>Variational Principles in Classical Mechanics</cite> by Douglas Cline</p>
+  <ul class="card-topics"><li>physics</li><li>classical-mechanics</li><li>variational-methods</li></ul>
+</article>
+<article class="card" data-name="mecmath-vector-calculus">
+  <header class="card-head">
+    <h3><a href="https://quadriviumpress.com/mecmath-vector-calculus/">Vector Calculus</a></h3>
+    <span class="badge badge-public-domain-adaptation">Open-license adaptation</span>
+  </header>
+  <p class="card-desc">Eleventy web edition of Michael Corral's Vector Calculus (LaTeX source to HTML).</p>
+  <p class="card-source">After <cite>Vector Calculus</cite> by Michael Corral</p>
+  <ul class="card-topics"><li>mathematics</li><li>vector-calculus</li></ul>
+</article>
+</div>
+<footer>Generated 2026-09-10T02:52:02Z by <a href="https://github.com/QuadriviumPress/bindery">bindery</a>/scripts/generate-pages-index.sh</footer>
+</body>
+</html>

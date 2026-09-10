@@ -1,0 +1,11 @@
+{
+  "name": "quadriviumpress",
+  "owner": { "name": "QuadriviumPress" },
+  "plugins": [
+    {
+      "name": "quadrivium",
+      "source": "./",
+      "description": "Shared authoring conventions for QuadriviumPress open textbooks."
+    }
+  ]
+}

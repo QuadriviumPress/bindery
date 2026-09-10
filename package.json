@@ -1,0 +1,12 @@
+{
+  "name": "quadriviumpress-bindery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tooling for the QuadriviumPress org orchestration repo (bindery): repo catalog helpers and the Pages book index.",
+  "scripts": {
+    "pages": "bash scripts/generate-pages-index.sh",
+    "catalog:check": "bash scripts/check-repos-catalog.sh",
+    "repos": "bash scripts/list-repos.sh"
+  }
+}

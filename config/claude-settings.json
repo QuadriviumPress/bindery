@@ -1,0 +1,6 @@
+{
+  "extraKnownMarketplaces": {
+    "quadriviumpress": { "source": { "source": "github", "repo": "QuadriviumPress/bindery" } }
+  },
+  "enabledPlugins": { "quadrivium@quadriviumpress": true }
+}

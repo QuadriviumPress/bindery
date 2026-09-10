@@ -1,0 +1,61 @@
+# Weekly + on-demand audit of every active repo in structure/repos.json
+# against scripts/check-repo-compliance.sh. Fans out one job per repo and
+# aggregates a pass/fail table in the job summary.
+name: Fleet compliance check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.list.outputs.repos }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          repos="$(jq -c '[.repos[] | select(.status == "active") | .name]' structure/repos.json)"
+          echo "repos=$repos" >> "$GITHUB_OUTPUT"
+
+  check:
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: ${{ fromJson(needs.matrix.outputs.repos) }}
+    steps:
+      - name: Checkout bindery
+        uses: actions/checkout@v4
+        with:
+          path: bindery
+
+      - name: Checkout ${{ matrix.repo }}
+        uses: actions/checkout@v4
+        with:
+          repository: QuadriviumPress/${{ matrix.repo }}
+          path: target
+
+      - name: Run compliance check
+        run: bindery/scripts/check-repo-compliance.sh target --catalog bindery/structure/repos.json
+
+  report:
+    needs: check
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summary
+        run: |
+          {
+            echo "## Fleet compliance"
+            echo
+            echo "Overall result: ${{ needs.check.result }}"
+            echo
+            echo "See the individual **check (repo)** job logs for per-repo pass/fail detail."
+          } >> "$GITHUB_STEP_SUMMARY"
