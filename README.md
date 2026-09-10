@@ -42,6 +42,7 @@ pointer-bump commits to keep in sync.
 | [`.claude-plugin/`](.claude-plugin/) | Marketplace + plugin manifests packaging `skills/` as the `quadrivium@quadriviumpress` Claude Code plugin |
 | [`docs/`](docs/) | Generated book index ([quadriviumpress.github.io/bindery](https://quadriviumpress.github.io/bindery/)) |
 | [`doc/add-book.md`](doc/add-book.md) | Checklist for adding a book to the catalog |
+| [`doc/fleet-git.md`](doc/fleet-git.md) | Cheat sheet: everyday git across local checkouts (`pull`/`push`/`status` all) |
 
 ## Claude Code plugin
 
@@ -139,6 +140,11 @@ Scripts assume `bindery` lives beside member repos in a shared workspace; set
 - **Clone the fleet** -- [`scripts/clone-fleet.sh`](scripts/clone-fleet.sh) clones every
   catalog repo as a sibling directory (`--update` fast-forwards ones already present;
   `--book`/`--type`/`--lineage`/`--only`/`--skip` filter which; `--dry-run` previews).
+- **Everyday git fan-out** -- [`scripts/fleet`](scripts/fleet) runs any git command across
+  every local catalog checkout (`fleet push`, `fleet pull --ff-only`, `fleet status -s`).
+  Cheat sheet: [`doc/fleet-git.md`](doc/fleet-git.md). Symlink onto `PATH` with
+  `ln -sfn ~/QuadriviumPress/bindery/scripts/fleet ~/.local/bin/fleet` (re-point if you also
+  use OpenPhysics/Baton's `fleet`).
 - **Compliance audit** -- weekly via `shared-compliance-check.yml` (above).
 - **Build health** -- [`fleet-health.yml`](.github/workflows/fleet-health.yml) runs weekly,
   fanning out one job per active book using its catalog `build` recipe. Read-only; surfaces
