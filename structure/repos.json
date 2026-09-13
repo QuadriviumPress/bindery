@@ -137,7 +137,7 @@
       "status": "active"
     },
     {
-      "name": "PrinciplesOfMechanics",
+      "name": "principlesOfMechanics",
       "displayName": "Principles of Mechanics",
       "type": "book",
       "isBook": true,
@@ -146,13 +146,13 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of Salma Alrasheed's Principles of Mechanics (Springer Open Access).",
-      "deployedUrl": "https://quadriviumpress.com/PrinciplesOfMechanics/",
+      "deployedUrl": "https://quadriviumpress.com/principlesOfMechanics/",
       "subjectTopics": ["physics", "classical-mechanics"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
     },
     {
-      "name": "UniversityPhysicsIClassicalMechanics",
+      "name": "universityPhysicsIClassicalMechanics",
       "displayName": "University Physics I: Classical Mechanics",
       "type": "book",
       "isBook": true,
@@ -161,13 +161,13 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of University Physics I: Classical Mechanics by Julio Gea-Banacloche.",
-      "deployedUrl": "https://quadriviumpress.com/UniversityPhysicsIClassicalMechanics/",
+      "deployedUrl": "https://quadriviumpress.com/universityPhysicsIClassicalMechanics/",
       "subjectTopics": ["physics", "classical-mechanics"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
     },
     {
-      "name": "modern-classical-mechanics",
+      "name": "modernClassicalMechanics",
       "displayName": "Modern Classical Mechanics",
       "type": "book",
       "isBook": true,
@@ -176,7 +176,7 @@
       "format": "myst",
       "language": ["Markdown", "Python", "Jupyter Notebook"],
       "description": "An open collection of notes, activities, and computational resources for learning and teaching classical mechanics, built with MyST from Jupyter notebooks. Substantially revised from an earlier edition by Danny Caballero and contributors; this edition is not authored or endorsed by them.",
-      "deployedUrl": "https://quadriviumpress.com/modern-classical-mechanics/",
+      "deployedUrl": "https://quadriviumpress.com/modernClassicalMechanics/",
       "subjectTopics": ["physics", "classical-mechanics", "computational-physics"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
@@ -197,7 +197,7 @@
       "status": "active"
     },
     {
-      "name": "Dynamics_Textbook",
+      "name": "dynamicsTextbook",
       "displayName": "Dynamics Textbook",
       "type": "book",
       "isBook": true,
@@ -206,7 +206,7 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of an open Dynamics textbook, following the upstream CC BY-NC-SA 4.0 licensing intent.",
-      "deployedUrl": "https://quadriviumpress.com/Dynamics_Textbook/",
+      "deployedUrl": "https://quadriviumpress.com/dynamicsTextbook/",
       "subjectTopics": ["physics", "dynamics", "classical-mechanics"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
@@ -257,7 +257,7 @@
       "status": "active"
     },
     {
-      "name": "EnergyAndHumanAmbitions",
+      "name": "energyAndHumanAmbitions",
       "displayName": "Energy and Human Ambitions on a Finite Planet",
       "type": "book",
       "isBook": true,
@@ -266,13 +266,13 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of Tom Murphy's Energy and Human Ambitions on a Finite Planet.",
-      "deployedUrl": "https://quadriviumpress.com/EnergyAndHumanAmbitions/",
+      "deployedUrl": "https://quadriviumpress.com/energyAndHumanAmbitions/",
       "subjectTopics": ["physics", "energy", "sustainability"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
     },
     {
-      "name": "QuantumComputingForTheQuantumCurious",
+      "name": "quantumComputingForTheQuantumCurious",
       "displayName": "Quantum Computing for the Quantum Curious",
       "type": "book",
       "isBook": true,
@@ -281,13 +281,13 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of Quantum Computing for the Quantum Curious (Hughes et al., Springer Open Access).",
-      "deployedUrl": "https://quadriviumpress.com/QuantumComputingForTheQuantumCurious/",
+      "deployedUrl": "https://quadriviumpress.com/quantumComputingForTheQuantumCurious/",
       "subjectTopics": ["physics", "quantum-computing"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"
     },
     {
-      "name": "AtomicPhysicsForEveryone",
+      "name": "atomicPhysicsForEveryone",
       "displayName": "Atomic Physics for Everyone",
       "type": "book",
       "isBook": true,
@@ -296,7 +296,7 @@
       "format": "myst",
       "language": ["Markdown", "Python"],
       "description": "MyST edition of Atomic Physics for Everyone (Will Raven, Springer Open Access).",
-      "deployedUrl": "https://quadriviumpress.com/AtomicPhysicsForEveryone/",
+      "deployedUrl": "https://quadriviumpress.com/atomicPhysicsForEveryone/",
       "subjectTopics": ["physics", "atomic-physics"],
       "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
       "status": "active"

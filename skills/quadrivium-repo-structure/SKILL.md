@@ -14,7 +14,7 @@ QuadriviumPress books are built with one of three formats. `structure/repos.json
 
 Source of truth is Markdown under `chapters/` (or `front/` + `chapters/` + `back/` +
 `appendices/` for books with distinct front/back matter, e.g. `thermodynamics`,
-`Dynamics_Textbook`). Common files at root:
+`dynamicsTextbook`). Common files at root:
 
 ```
 myst.yml              # project metadata: title, authors, keywords, TOC

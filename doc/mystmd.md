@@ -12,7 +12,7 @@
 
   - modernPhysics: custom simulation/export plugins.
   - opticsTextbook: substantial JavaScript validation, export, and PWA post-processing.
-  - modern-classical-mechanics: executable Jupytext/Python content.
+  - modernClassicalMechanics: executable Jupytext/Python content.
   - quantumMechanics: PWA post-processing.
 
   The other nine are comparatively plain MyST books.
@@ -81,7 +81,7 @@
                        assets. Pedagogically strong active-learning
                        design, summaries, practice problems,
                        experiments, videos and eight notebooks. See
-                       Dynamics_Textbook/scripts/verify_book.py.
+                       dynamicsTextbook/scripts/verify_book.py.
   ──────────────────  ────────────────────────────────────────────────  ────────────────────────────────────────────────
    EnergyAndHumanAm    Excellent whole-book architecture: “how to use    Source-coverage QA silently skips when build/
    bitions             this book,” problems in every chapter,            document.json is absent—as it is in a clean
@@ -112,13 +112,13 @@
 
   - Overall engineering and structured textbook pedagogy: modernPhysics.
   - Reusable validation code, PWA and delivery tooling: opticsTextbook.
-  - Computational and project-based learning: modern-classical-mechanics.
-  - Active-learning and multimodal material: Dynamics_Textbook.
-  - Conversion fidelity: Dynamics_Textbook, then thermodynamics.
+  - Computational and project-based learning: modernClassicalMechanics.
+  - Active-learning and multimodal material: dynamicsTextbook.
+  - Conversion fidelity: dynamicsTextbook, then thermodynamics.
   - Accessibility in existing content: modernPhysics, physicsOfWaves, thermodynamics, variationalPrinciples,
-    Dynamics_Textbook, and EnergyAndHumanAmbitions.
+    dynamicsTextbook, and energyAndHumanAmbitions.
 
-  - Attribution/provenance: modernPhysics, Dynamics_Textbook, and EnergyAndHumanAmbitions.
+  - Attribution/provenance: modernPhysics, dynamicsTextbook, and energyAndHumanAmbitions.
   - Clean starter architecture: opiniatedMystmdBookTemplate (opiniatedMystmdBookTemplate/README.md).
 
   ## Recommended future unified model
@@ -159,7 +159,7 @@
   extensions and current action versions. Otherwise “unification” would reduce QA in the best repositories.
 
   As of September 13, 2026, the primary Pages deployments are generally successful; the clear current exception is
-  Dynamics_Textbook CI. I made no repository changes during this survey.
+  dynamicsTextbook CI. I made no repository changes during this survey.
 
 ─ Worked for 8m 52s ────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -185,7 +185,7 @@
 
   - Every book pins mystmd@1.10.1 and has a lockfile.
   - opticsTextbook lacks private: true.
-  - Only modernPhysics, modern-classical-mechanics, and Dynamics_Textbook fully declare a Node 22 floor among the
+  - Only modernPhysics, modernClassicalMechanics, and dynamicsTextbook fully declare a Node 22 floor among the
     catalogued books.
 
   - opticsTextbook allows Node 20 and actually validates on Node 20 while deploying on Node 22.
@@ -239,18 +239,18 @@
 
    Repo                                               Metadata gap
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   PrinciplesOfMechanics                              No description, keywords, or accessible logo metadata
+   principlesOfMechanics                              No description, keywords, or accessible logo metadata
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
-   UniversityPhysicsIClassicalMechanics               No description, keywords, or accessible logo metadata
+   universityPhysicsIClassicalMechanics               No description, keywords, or accessible logo metadata
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
-   Dynamics_Textbook                                  Missing github and keywords
+   dynamicsTextbook                                  Missing github and keywords
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
-   QuantumComputingForTheQuantumCurious               No description, keywords, or accessible logo metadata
+   quantumComputingForTheQuantumCurious               No description, keywords, or accessible logo metadata
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
-   AtomicPhysicsForEveryone                           No description, keywords, or accessible logo metadata
+   atomicPhysicsForEveryone                           No description, keywords, or accessible logo metadata
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
    physicsOfWaves, thermodynamics,                    Good core metadata, but little or no accessible branding metadata
-   variationalPrinciples, EnergyAndHumanAmbitions
+   variationalPrinciples, energyAndHumanAmbitions
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
    opticsTextbook                                     Good metadata, but catalog provenance conflicts with its README
   ─────────────────────────────────────────────────  ───────────────────────────────────────────────────────────────────
@@ -279,7 +279,7 @@
 
   Existing code to reuse:
 
-  - Dynamics verifier (Dynamics_Textbook/scripts/verify_book.py): strongest source-fidelity, label, reference, image,
+  - Dynamics verifier (dynamicsTextbook/scripts/verify_book.py): strongest source-fidelity, label, reference, image,
     problem/solution and LaTeX checking.
 
   - Optics validators (opticsTextbook/scripts/validation): best modular validators, especially accessibility and style.
@@ -290,13 +290,13 @@
 
   Important current weaknesses:
 
-  - PrinciplesOfMechanics, QuantumComputingForTheQuantumCurious, and AtomicPhysicsForEveryone have no active package-
+  - principlesOfMechanics, quantumComputingForTheQuantumCurious, and atomicPhysicsForEveryone have no active package-
     level verifier.
 
   - quantumMechanics only checks a few files and metadata fields.
-  - modern-classical-mechanics executes notebooks strictly but lacks structural content checks.
-  - EnergyAndHumanAmbitions skips source-coverage checks in a clean clone because build/document.json is absent.
-  - Dynamics_Textbook correctly fails verification because 152 images are currently orphaned. This is evidence that the
+  - modernClassicalMechanics executes notebooks strictly but lacks structural content checks.
+  - energyAndHumanAmbitions skips source-coverage checks in a clean clone because build/document.json is absent.
+  - dynamicsTextbook correctly fails verification because 152 images are currently orphaned. This is evidence that the
     verifier is useful, not that it should be weakened.
 
   A shared scripts/verify-base.mjs or small internal package could implement universal checks, with each book adding its
@@ -334,10 +334,10 @@
 
   Immediate anomalies:
 
-  - Dynamics_Textbook deployment is manual-only.
-  - EnergyAndHumanAmbitions deploys using a global MyST installation.
+  - dynamicsTextbook deployment is manual-only.
+  - energyAndHumanAmbitions deploys using a global MyST installation.
   - opticsTextbook has no conventional ci.yml; several validators are non-blocking.
-  - PrinciplesOfMechanics, QuantumComputingForTheQuantumCurious, and AtomicPhysicsForEveryone only test whether MyST
+  - principlesOfMechanics, quantumComputingForTheQuantumCurious, and atomicPhysicsForEveryone only test whether MyST
     builds.
 
   ## 5. Dependabot
@@ -346,8 +346,8 @@
 
   - modernPhysics
   - opticsTextbook
-  - modern-classical-mechanics
-  - Dynamics_Textbook
+  - modernClassicalMechanics
+  - dynamicsTextbook
 
   Every Node-based book should receive the canonical npm and GitHub Actions configuration from Bindery. Python
   dependency updates should be enabled only for repositories that actually maintain a requirements.txt or
@@ -381,8 +381,8 @@
 
   Current failures:
 
-  - QuantumComputingForTheQuantumCurious
-  - AtomicPhysicsForEveryone
+  - quantumComputingForTheQuantumCurious
+  - atomicPhysicsForEveryone
 
   Both need a root license document or a clear README license section.
 
@@ -397,11 +397,11 @@
   Best examples:
 
   - modernPhysics: detailed chapter-level modernPhysics/SOURCES.md.
-  - Dynamics_Textbook: explicit provenance (Dynamics_Textbook/provenance.md), upstream acknowledgement, and separate
+  - dynamicsTextbook: explicit provenance (dynamicsTextbook/provenance.md), upstream acknowledgement, and separate
     notebook/video licensing.
 
-  - EnergyAndHumanAmbitions: dedicated image-attribution material.
-  - modern-classical-mechanics: actual root content license.
+  - energyAndHumanAmbitions: dedicated image-attribution material.
+  - modernClassicalMechanics: actual root content license.
 
   The distinction between content and code is especially important for quantumMechanics: its root LICENSE covers the
   inherited template code, while the README assigns CC BY-SA to the textbook content.

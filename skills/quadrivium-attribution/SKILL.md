@@ -21,7 +21,7 @@ fails a repo missing both.
 
 - **`original`** -- wholly new QuadriviumPress work (`modernPhysics`, `opticsTextbook`,
   `college-physics-textbook`) or a substantial enough rewrite of an earlier open edition
-  that it isn't a direct adaptation (`modern-classical-mechanics` explicitly credits and
+  that it isn't a direct adaptation (`modernClassicalMechanics` explicitly credits and
   distinguishes itself from Danny Caballero's earlier notes). `source` is `null`.
 - **`openstax-remix`** -- an Eleventy HTML build from raw OpenStax CNXML (see the
   `osbooks-*` upstream-reference repos, e.g. `osbooks-astronomy` feeds `astronomy`).
@@ -29,7 +29,7 @@ fails a repo missing both.
   Attribution-NonCommercial-ShareAlike terms.
 - **`public-domain-adaptation`** -- a named author's openly licensed book, adapted into a
   QuadriviumPress edition (`thermodynamics` <- Olivier Cleynen, `mecmath-trigonometry` <-
-  Michael Corral, `PrinciplesOfMechanics` <- Salma Alrasheed, ...). `source` names the
+  Michael Corral, `principlesOfMechanics` <- Salma Alrasheed, ...). `source` names the
   author, title, and, where a canonical page or DOI exists, its URL.
 
 ## Filling in `source`
