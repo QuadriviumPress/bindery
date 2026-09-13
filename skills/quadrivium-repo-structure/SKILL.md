@@ -29,7 +29,9 @@ tests/
 ```
 
 Build: `npm run build` -> `myst build --html` -> `_build/html`. `npm run start` runs the
-MyST dev server. Node 22 is the fleet floor (`engines.node` in `package.json`).
+MyST dev server, `npm run verify` runs the book-specific fast checks, and
+`npm run check` is the production-equivalent verification/build entry point.
+Node 22 is the fleet floor (`engines.node` in `package.json`).
 
 ## Eleventy repos
 

@@ -47,6 +47,24 @@ detail lives in [`skills/quadrivium-repo-structure/SKILL.md`](skills/quadrivium-
 - If the repo is Node-based, `package.json` declares `engines.node` (fleet floor: `>=22`,
   matching the `node-version` default in `ci.yml` / `deploy.yml`).
 
+## MyST contract
+
+Every active MyST book additionally provides:
+
+- `package.json` with `private: true`, exact `mystmd@1.10.1`, and `start`,
+  `build`, `verify`, and `check` scripts. `verify` runs fast structural,
+  conversion, execution, or content checks appropriate to that book; `check`
+  is the production-equivalent verification and HTML build.
+- `myst.yml` metadata containing `title`, `short_title`, `description`,
+  `authors`, `license`, `open_access: true`, `github`, `keywords`, and a
+  non-empty `toc`.
+- `SOURCES.md` recording the primary source, edition license, and the policy
+  for attributing figures and other third-party components.
+- Pull-request CI that gates on `verify`/`check`, and a Pages deployment that
+  reruns the book's verifier before publishing. Export-, PWA-, and
+  notebook-heavy books may keep specialized deployment workflows while using
+  the same command contract.
+
 ## Adding a book to the catalog
 
 See [`doc/add-book.md`](doc/add-book.md).

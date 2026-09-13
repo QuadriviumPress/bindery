@@ -48,7 +48,7 @@ card_html() {
     local author title
     author="$(esc "$(jq -r '.source.author' <<<"$json")")"
     title="$(esc "$(jq -r '.source.title' <<<"$json")")"
-    source_html="<p class=\"card-source\">After <cite>$title</cite> by $author</p>"
+    source_html="  <p class=\"card-source\">After <cite>$title</cite> by $author</p>"
   fi
 
   local lineage lineage_text badge_html=""
@@ -63,7 +63,7 @@ card_html() {
     $badge_html
   </header>
   <p class="card-desc">$desc</p>
-  $source_html
+$source_html
   <ul class="card-topics">$topics_html</ul>
 </article>
 CARD
@@ -71,11 +71,9 @@ CARD
 
 BOOKS_JSON="$(jq -c '[.repos[] | select(.status == "active" and .isBook == true)] | sort_by(.displayName)' "$CATALOG")"
 TOTAL="$(jq 'length' <<<"$BOOKS_JSON")"
-# Derived from the catalog's last commit, not wall-clock time, so re-running
-# this script against an unchanged repos.json produces byte-identical output
-# (see bindery-selfcheck.yml, which diffs a regenerated copy against git HEAD).
-GENERATED_AT="$(cd "$ROOT_DIR" && git log -1 --format=%cs -- "$CATALOG" 2>/dev/null || true)"
-[[ -n "$GENERATED_AT" ]] || GENERATED_AT="unreleased"
+# The output must depend only on catalog content. A commit-derived timestamp
+# changes after the catalog and generated page are committed together, making
+# the self-check report a false stale-page failure on the next CI run.
 
 mkdir -p "$ROOT_DIR/docs"
 
@@ -118,7 +116,7 @@ HTML
 
   cat <<HTML
 </div>
-<footer>Generated $GENERATED_AT by <a href="https://github.com/QuadriviumPress/bindery">bindery</a>/scripts/generate-pages-index.sh</footer>
+<footer>Generated from <a href="../structure/repos.json">structure/repos.json</a> by <a href="https://github.com/QuadriviumPress/bindery">bindery</a>.</footer>
 </body>
 </html>
 HTML

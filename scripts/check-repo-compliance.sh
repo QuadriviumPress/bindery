@@ -53,6 +53,16 @@ fail() { echo "FAIL: $1"; fails=$((fails + 1)); }
 warn() { echo "WARN: $1"; warns=$((warns + 1)); }
 pass() { echo "  ok: $1"; }
 
+project_has_key() {
+  local key="$1"
+  awk -v key="$key" '
+    /^project:[[:space:]]*$/ { in_project = 1; next }
+    in_project && /^[^[:space:]#]/ { exit }
+    in_project && $0 ~ "^  " key ":" { found = 1; exit }
+    END { exit(found ? 0 : 1) }
+  ' "$REPO_PATH/myst.yml"
+}
+
 echo "== $REPO_NAME (isBook=$IS_BOOK format=$FORMAT status=$STATUS) =="
 
 # README
@@ -105,6 +115,30 @@ fi
 case "$FORMAT" in
   myst)
     [[ -f "$REPO_PATH/myst.yml" ]] && pass "myst.yml present" || fail "format is myst but myst.yml is missing"
+    [[ -f "$REPO_PATH/SOURCES.md" ]] \
+      && pass "SOURCES.md records provenance and component attribution" \
+      || fail "MyST book must include SOURCES.md"
+
+    if [[ -f "$REPO_PATH/myst.yml" ]]; then
+      for key in title short_title description authors license github keywords toc; do
+        if project_has_key "$key"; then
+          pass "myst.yml declares project.$key"
+        else
+          fail "myst.yml is missing project.$key"
+        fi
+      done
+      if project_has_key open_access \
+         && awk '
+              /^project:[[:space:]]*$/ { in_project = 1; next }
+              in_project && /^[^[:space:]#]/ { exit }
+              in_project && /^  open_access:[[:space:]]+true([[:space:]]*#.*)?$/ { found = 1; exit }
+              END { exit(found ? 0 : 1) }
+            ' "$REPO_PATH/myst.yml"; then
+        pass "myst.yml declares project.open_access: true"
+      else
+        fail "myst.yml must declare project.open_access: true"
+      fi
+    fi
     ;;
   eleventy)
     [[ -f "$REPO_PATH/eleventy.config.js" ]] && pass "eleventy.config.js present" || fail "format is eleventy but eleventy.config.js is missing"
@@ -116,11 +150,39 @@ esac
 
 # Node engines pin, when the repo is Node-based
 if [[ -f "$REPO_PATH/package.json" ]]; then
-  if jq -e '.engines.node' "$REPO_PATH/package.json" >/dev/null 2>&1; then
-    pass "package.json declares engines.node"
+  node_range="$(jq -r '.engines.node // ""' "$REPO_PATH/package.json")"
+  if [[ "$node_range" == ">=22" || "$node_range" == "22.x" ]]; then
+    pass "package.json declares the Node 22 fleet floor"
+  elif [[ -n "$node_range" ]]; then
+    warn "package.json engines.node is '$node_range' (fleet standard: >=22 or 22.x)"
   else
     warn "package.json has no engines.node pin (fleet standard: >=22)"
   fi
+
+  if [[ "$FORMAT" == "myst" ]]; then
+    jq -e '.private == true' "$REPO_PATH/package.json" >/dev/null 2>&1 \
+      && pass "package.json is private" \
+      || fail "MyST package.json must set private: true"
+    myst_version="$(jq -r '.devDependencies.mystmd // .dependencies.mystmd // ""' "$REPO_PATH/package.json")"
+    [[ "$myst_version" == "1.10.1" ]] \
+      && pass "mystmd is pinned exactly to 1.10.1" \
+      || fail "mystmd must be pinned exactly to 1.10.1 (found '${myst_version:-missing}')"
+    for script in start build verify check; do
+      jq -e --arg script "$script" '.scripts[$script] | type == "string" and length > 0' \
+        "$REPO_PATH/package.json" >/dev/null 2>&1 \
+        && pass "package.json defines npm run $script" \
+        || fail "MyST package.json must define npm run $script"
+    done
+    [[ -f "$REPO_PATH/package-lock.json" ]] \
+      && pass "package-lock.json present" \
+      || fail "MyST repo must commit package-lock.json"
+  fi
+fi
+
+if [[ -f "$REPO_PATH/package.json" ]]; then
+  [[ -f "$REPO_PATH/.github/dependabot.yml" ]] \
+    && pass "Dependabot configuration present" \
+    || warn "Node-based repo has no .github/dependabot.yml"
 fi
 
 echo "----"
