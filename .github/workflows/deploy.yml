@@ -2,6 +2,10 @@
 # output-dir varies by format (MyST: _build/html, Eleventy: _site, Jekyll:
 # _site) so callers must set it explicitly; see structure/repos.json's
 # build.outputDir for each repo.
+#
+# Optional hooks cover the MyST “capability profiles” without forking the
+# workflow: pre/post-build commands, Typst for PDF exports, notebook kernels,
+# and longer timeouts for export-heavy books.
 name: Deploy (reusable)
 
 on:
@@ -22,6 +26,10 @@ on:
       pre-build-command:
         type: string
         default: ""
+      post-build-command:
+        description: Optional command after the main build (PWA polish, copy exports, summaries).
+        type: string
+        default: ""
       output-dir:
         description: Directory to publish to Pages (required).
         type: string
@@ -29,11 +37,32 @@ on:
       install-hunspell:
         type: boolean
         default: false
+      setup-typst:
+        description: Install Typst for PDF export builds.
+        type: boolean
+        default: false
+      typst-version:
+        type: string
+        default: "latest"
+      install-ipykernel:
+        description: Register a user ipykernel named python3 (executable notebook books).
+        type: boolean
+        default: false
+      timeout-minutes:
+        description: Job timeout for the build half of deploy.
+        type: number
+        default: 30
+      node-options:
+        description: Optional NODE_OPTIONS for memory-heavy Myst/Typst builds.
+        type: string
+        default: ""
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  # Allow callers to fetch artifacts/releases from prior Exports workflows.
+  actions: read
 
 concurrency:
   group: pages-${{ github.repository }}
@@ -42,9 +71,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: ${{ inputs.timeout-minutes }}
     env:
       BASE_URL: /${{ github.event.repository.name }}
+      NODE_OPTIONS: ${{ inputs.node-options }}
     steps:
       - uses: actions/checkout@v7
 
@@ -64,10 +94,16 @@ jobs:
           cache: npm
 
       - uses: actions/setup-python@v7
-        if: steps.detect.outputs.has_python == 'true'
+        if: steps.detect.outputs.has_python == 'true' || inputs.install-ipykernel
         with:
           python-version: ${{ inputs.python-version }}
           cache: pip
+
+      - name: Setup Typst
+        if: inputs.setup-typst
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: ${{ inputs.typst-version }}
 
       - name: Install hunspell
         if: inputs.install-hunspell
@@ -77,6 +113,10 @@ jobs:
         if: steps.detect.outputs.has_python == 'true'
         run: |
           [ -f requirements.txt ] && pip install -r requirements.txt || true
+
+      - name: Install ipykernel
+        if: inputs.install-ipykernel
+        run: python -m ipykernel install --user --name python3 --display-name "Python 3"
 
       - name: Install Node dependencies
         if: steps.detect.outputs.has_node == 'true'
@@ -88,6 +128,10 @@ jobs:
 
       - name: Build
         run: ${{ inputs.build-command }}
+
+      - name: Post-build step
+        if: inputs.post-build-command != ''
+        run: ${{ inputs.post-build-command }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
