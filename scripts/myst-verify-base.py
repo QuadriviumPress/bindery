@@ -43,11 +43,11 @@ ARTIFACTS = {
 }
 
 FIGURE_FENCE_RE = re.compile(
-    r"^(`{3,}|:{3,})\{figure\}\s*(\S+)(.*?)^\1",
+    r"^[ \t]*(`{3,}|:{3,})\{figure\}\s*(\S+)(.*?)^[ \t]*\1",
     re.MULTILINE | re.DOTALL,
 )
 LABEL_RE = re.compile(
-    r"(?m)^(?:\(([^)]+)\)=|:label:\s*(\S+)|:name:\s*(\S+)|label:\s*(\S+)|name:\s*(\S+))",
+    r"(?m)^[ \t]*(?:\(([^)]+)\)=|:label:\s*(\S+)|:name:\s*(\S+)|label:\s*(\S+)|name:\s*(\S+))",
 )
 LINK_RE = re.compile(r"\]\(#([^)]+)\)")
 
