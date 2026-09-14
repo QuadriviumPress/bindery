@@ -11,7 +11,9 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["Markdown"],
+      "language": [
+        "Markdown"
+      ],
       "description": "Organization-level community health defaults (license, contributing, code of conduct, security, issue/PR templates) and the org profile.",
       "deployedUrl": null,
       "subjectTopics": [],
@@ -25,11 +27,32 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["Shell", "JavaScript", "JSON"],
+      "language": [
+        "Shell",
+        "JavaScript",
+        "JSON"
+      ],
       "description": "Orchestration repository for the QuadriviumPress organization: the reusable CI/CD workflows every book calls, the machine-readable repository catalog, quire and clone-fleet scripts, and the GitHub Pages book index.",
       "deployedUrl": "https://quadriviumpress.github.io/bindery/",
       "subjectTopics": [],
       "status": "active"
+    },
+    {
+      "name": "opiniatedMystmdBookTemplate",
+      "displayName": "Opinionated MyST Book Template",
+      "type": "tool",
+      "isBook": false,
+      "lineage": null,
+      "source": null,
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "JavaScript"
+      ],
+      "description": "Opinionated MyST Markdown starter used to seed new QuadriviumPress textbooks (Node 22, mystmd, PWA, verify/check scripts, CI/deploy workflows).",
+      "deployedUrl": null,
+      "subjectTopics": [],
+      "status": "template"
     },
     {
       "name": "QuadriviumPress.github.io",
@@ -39,13 +62,15 @@
       "lineage": null,
       "source": null,
       "format": "static-html",
-      "language": ["HTML", "JavaScript"],
+      "language": [
+        "HTML",
+        "JavaScript"
+      ],
       "description": "Quadrivium Press organization landing page at quadriviumpress.com.",
       "deployedUrl": "https://quadriviumpress.com/",
       "subjectTopics": [],
       "status": "active"
     },
-
     {
       "name": "modernPhysics",
       "displayName": "Modern Physics",
@@ -54,11 +79,23 @@
       "lineage": "original",
       "source": null,
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST Markdown original textbook: Modern Physics (relativity, quantum, atomic/molecular, nuclear/particle).",
       "deployedUrl": "https://quadriviumpress.com/modernPhysics/",
-      "subjectTopics": ["physics", "modern-physics", "relativity", "quantum-mechanics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "modern-physics",
+        "relativity",
+        "quantum-mechanics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -67,13 +104,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Aurèle J.L. Adam, Sander Konijnenberg, H. Paul Urbach, and Thomas H.A. van der Reep", "title": "Interactive Optics — 2nd edition", "url": "https://books.open.tudelft.nl/home/catalog/book/232", "license": "CC BY 4.0" },
+      "source": {
+        "author": "Aur\u00e8le J.L. Adam, Sander Konijnenberg, H. Paul Urbach, and Thomas H.A. van der Reep",
+        "title": "Interactive Optics \u2014 2nd edition",
+        "url": "https://books.open.tudelft.nl/home/catalog/book/232",
+        "license": "CC BY 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "JavaScript"],
+      "language": [
+        "Markdown",
+        "JavaScript"
+      ],
       "description": "MyST adaptation of TU Delft's Interactive Optics for undergraduate physics and electrical-engineering students, licensed CC BY-SA 4.0.",
       "deployedUrl": "https://quadriviumpress.com/opticsTextbook/",
-      "subjectTopics": ["physics", "optics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "optics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -84,11 +136,21 @@
       "lineage": "original",
       "source": null,
       "format": "eleventy",
-      "language": ["JavaScript", "Markdown"],
+      "language": [
+        "JavaScript",
+        "Markdown"
+      ],
       "description": "General Physics open textbook aiming to make algebra-based physics education accessible to everyone, licensed CC BY-NC-SA 4.0.",
       "deployedUrl": "https://quadriviumpress.com/college-physics-textbook/",
-      "subjectTopics": ["physics", "college-physics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "college-physics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -97,13 +159,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Howard Georgi", "title": "The Physics of Waves", "url": null, "license": "CC BY-NC-SA 4.0" },
+      "source": {
+        "author": "Howard Georgi",
+        "title": "The Physics of Waves",
+        "url": null,
+        "license": "CC BY-NC-SA 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST Markdown edition of The Physics of Waves by Howard Georgi.",
       "deployedUrl": "https://quadriviumpress.com/physicsOfWaves/",
-      "subjectTopics": ["physics", "waves"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "waves"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -112,13 +189,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Olivier Cleynen", "title": "Engineering Thermodynamics", "url": null, "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Olivier Cleynen",
+        "title": "Engineering Thermodynamics",
+        "url": null,
+        "license": "CC BY-SA 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST Markdown edition of Olivier Cleynen's Engineering Thermodynamics.",
       "deployedUrl": "https://quadriviumpress.com/thermodynamics/",
-      "subjectTopics": ["physics", "thermodynamics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "thermodynamics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -127,13 +219,29 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Douglas Cline", "title": "Variational Principles in Classical Mechanics", "url": null, "license": "CC BY-NC-SA 4.0" },
+      "source": {
+        "author": "Douglas Cline",
+        "title": "Variational Principles in Classical Mechanics",
+        "url": null,
+        "license": "CC BY-NC-SA 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST Markdown edition of Douglas Cline's Variational Principles in Classical Mechanics.",
       "deployedUrl": "https://quadriviumpress.com/variationalPrinciples/",
-      "subjectTopics": ["physics", "classical-mechanics", "variational-methods"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "classical-mechanics",
+        "variational-methods"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -142,13 +250,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Salma Alrasheed", "title": "Principles of Mechanics", "url": "https://doi.org/10.1007/978-3-030-15195-9", "license": "CC BY 4.0" },
+      "source": {
+        "author": "Salma Alrasheed",
+        "title": "Principles of Mechanics",
+        "url": "https://doi.org/10.1007/978-3-030-15195-9",
+        "license": "CC BY 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of Salma Alrasheed's Principles of Mechanics (Springer Open Access).",
       "deployedUrl": "https://quadriviumpress.com/principlesOfMechanics/",
-      "subjectTopics": ["physics", "classical-mechanics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "classical-mechanics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -157,13 +280,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Julio Gea-Banacloche", "title": "University Physics I: Classical Mechanics", "url": "https://scholarworks.uark.edu/oer/3/", "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Julio Gea-Banacloche",
+        "title": "University Physics I: Classical Mechanics",
+        "url": "https://scholarworks.uark.edu/oer/3/",
+        "license": "CC BY-SA 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of University Physics I: Classical Mechanics by Julio Gea-Banacloche.",
       "deployedUrl": "https://quadriviumpress.com/universityPhysicsIClassicalMechanics/",
-      "subjectTopics": ["physics", "classical-mechanics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "classical-mechanics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -174,11 +312,23 @@
       "lineage": "original",
       "source": null,
       "format": "myst",
-      "language": ["Markdown", "Python", "Jupyter Notebook"],
+      "language": [
+        "Markdown",
+        "Python",
+        "Jupyter Notebook"
+      ],
       "description": "An open collection of notes, activities, and computational resources for learning and teaching classical mechanics, built with MyST from Jupyter notebooks. Substantially revised from an earlier edition by Danny Caballero and contributors; this edition is not authored or endorsed by them.",
       "deployedUrl": "https://quadriviumpress.com/modernClassicalMechanics/",
-      "subjectTopics": ["physics", "classical-mechanics", "computational-physics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "classical-mechanics",
+        "computational-physics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -189,11 +339,22 @@
       "lineage": "original",
       "source": null,
       "format": "myst",
-      "language": ["Markdown", "JavaScript"],
+      "language": [
+        "Markdown",
+        "JavaScript"
+      ],
       "description": "An open undergraduate quantum mechanics textbook that develops the formalism from spin measurements before introducing wavefunctions.",
       "deployedUrl": "https://quadriviumpress.com/quantumMechanics/",
-      "subjectTopics": ["physics", "quantum-mechanics", "quantum-information"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "quantum-mechanics",
+        "quantum-information"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -202,13 +363,29 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Lance Schonberg and Sarah Sadavoy", "title": "Dynamics", "url": null, "license": "CC BY-NC-SA 4.0" },
+      "source": {
+        "author": "Lance Schonberg and Sarah Sadavoy",
+        "title": "Dynamics",
+        "url": null,
+        "license": "CC BY-NC-SA 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of an open Dynamics textbook, following the upstream CC BY-NC-SA 4.0 licensing intent.",
       "deployedUrl": "https://quadriviumpress.com/dynamicsTextbook/",
-      "subjectTopics": ["physics", "dynamics", "classical-mechanics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "dynamics",
+        "classical-mechanics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -217,13 +394,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Ryan D. Martin", "title": "Essentials of Classical Mechanics", "url": null, "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Ryan D. Martin",
+        "title": "Essentials of Classical Mechanics",
+        "url": null,
+        "license": "CC BY-SA 4.0"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Eleventy web edition of Ryan D. Martin's Essentials of Classical Mechanics (LaTeX source rendered to HTML).",
       "deployedUrl": "http://quadriviumpress.com/ClassicalMechanics/",
-      "subjectTopics": ["physics", "classical-mechanics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "classical-mechanics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -232,13 +424,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Steven W. Ellingson", "title": "Electromagnetics Vol. 1", "url": null, "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Steven W. Ellingson",
+        "title": "Electromagnetics Vol. 1",
+        "url": null,
+        "license": "CC BY-SA 4.0"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Eleventy web edition of Ellingson's Electromagnetics Vol. 1 (LaTeX source rendered to HTML).",
       "deployedUrl": "https://quadriviumpress.com/ElectromagneticsVolOneTextbook/",
-      "subjectTopics": ["physics", "electromagnetics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "electromagnetics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -247,13 +454,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Steven W. Ellingson", "title": "Electromagnetics Vol. 2", "url": null, "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Steven W. Ellingson",
+        "title": "Electromagnetics Vol. 2",
+        "url": null,
+        "license": "CC BY-SA 4.0"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Eleventy web edition of Ellingson's Electromagnetics Vol. 2 (LaTeX source rendered to HTML).",
       "deployedUrl": "https://quadriviumpress.com/ElectromagneticsVolTwoTextbook/",
-      "subjectTopics": ["physics", "electromagnetics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "electromagnetics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -262,13 +484,29 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Tom Murphy", "title": "Energy and Human Ambitions on a Finite Planet", "url": "https://escholarship.org/uc/item/9js5291m", "license": "CC BY-NC 4.0" },
+      "source": {
+        "author": "Tom Murphy",
+        "title": "Energy and Human Ambitions on a Finite Planet",
+        "url": "https://escholarship.org/uc/item/9js5291m",
+        "license": "CC BY-NC 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of Tom Murphy's Energy and Human Ambitions on a Finite Planet.",
       "deployedUrl": "https://quadriviumpress.com/energyAndHumanAmbitions/",
-      "subjectTopics": ["physics", "energy", "sustainability"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "energy",
+        "sustainability"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -277,13 +515,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Hughes et al.", "title": "Quantum Computing for the Quantum Curious", "url": "https://doi.org/10.1007/978-3-030-61601-4", "license": "CC BY 4.0" },
+      "source": {
+        "author": "Hughes et al.",
+        "title": "Quantum Computing for the Quantum Curious",
+        "url": "https://doi.org/10.1007/978-3-030-61601-4",
+        "license": "CC BY 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of Quantum Computing for the Quantum Curious (Hughes et al., Springer Open Access).",
       "deployedUrl": "https://quadriviumpress.com/quantumComputingForTheQuantumCurious/",
-      "subjectTopics": ["physics", "quantum-computing"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "quantum-computing"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
     {
@@ -292,29 +545,57 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Will Raven", "title": "Atomic Physics for Everyone", "url": "https://doi.org/10.1007/978-3-031-69507-0", "license": "CC BY 4.0" },
+      "source": {
+        "author": "Will Raven",
+        "title": "Atomic Physics for Everyone",
+        "url": "https://doi.org/10.1007/978-3-031-69507-0",
+        "license": "CC BY 4.0"
+      },
       "format": "myst",
-      "language": ["Markdown", "Python"],
+      "language": [
+        "Markdown",
+        "Python"
+      ],
       "description": "MyST edition of Atomic Physics for Everyone (Will Raven, Springer Open Access).",
       "deployedUrl": "https://quadriviumpress.com/atomicPhysicsForEveryone/",
-      "subjectTopics": ["physics", "atomic-physics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_build/html" },
+      "subjectTopics": [
+        "physics",
+        "atomic-physics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
       "status": "active"
     },
-
     {
       "name": "astronomy",
       "displayName": "Astronomy 2e",
       "type": "book",
       "isBook": true,
       "lineage": "openstax-remix",
-      "source": { "author": "OpenStax", "title": "Astronomy 2e", "url": "https://openstax.org/details/books/astronomy-2e", "license": "CC BY-NC-SA" },
+      "source": {
+        "author": "OpenStax",
+        "title": "Astronomy 2e",
+        "url": "https://openstax.org/details/books/astronomy-2e",
+        "license": "CC BY-NC-SA"
+      },
       "format": "eleventy",
-      "language": ["JavaScript", "HTML"],
+      "language": [
+        "JavaScript",
+        "HTML"
+      ],
       "description": "Eleventy HTML edition of OpenStax Astronomy 2e.",
       "deployedUrl": "https://quadriviumpress.com/astronomy/",
-      "subjectTopics": ["astronomy"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "astronomy"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -323,13 +604,28 @@
       "type": "bundle",
       "isBook": true,
       "lineage": "openstax-remix",
-      "source": { "author": "OpenStax", "title": "Calculus Volume 1", "url": "https://openstax.org/details/books/calculus-volume-1", "license": "CC BY-NC-SA" },
+      "source": {
+        "author": "OpenStax",
+        "title": "Calculus Volume 1",
+        "url": "https://openstax.org/details/books/calculus-volume-1",
+        "license": "CC BY-NC-SA"
+      },
       "format": "eleventy",
-      "language": ["JavaScript", "HTML"],
+      "language": [
+        "JavaScript",
+        "HTML"
+      ],
       "description": "Eleventy HTML edition of OpenStax Calculus Volumes 1-3.",
       "deployedUrl": null,
-      "subjectTopics": ["mathematics", "calculus"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "mathematics",
+        "calculus"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -338,13 +634,28 @@
       "type": "bundle",
       "isBook": true,
       "lineage": "openstax-remix",
-      "source": { "author": "OpenStax", "title": "College Physics 2e", "url": "https://openstax.org/details/books/college-physics-2e", "license": "CC BY-NC-SA" },
+      "source": {
+        "author": "OpenStax",
+        "title": "College Physics 2e",
+        "url": "https://openstax.org/details/books/college-physics-2e",
+        "license": "CC BY-NC-SA"
+      },
       "format": "eleventy",
-      "language": ["JavaScript", "HTML"],
+      "language": [
+        "JavaScript",
+        "HTML"
+      ],
       "description": "Eleventy HTML edition of OpenStax College Physics 2e and AP Courses 2e.",
       "deployedUrl": null,
-      "subjectTopics": ["physics", "college-physics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "college-physics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -353,29 +664,58 @@
       "type": "bundle",
       "isBook": true,
       "lineage": "openstax-remix",
-      "source": { "author": "OpenStax", "title": "University Physics Volume 1", "url": "https://openstax.org/details/books/university-physics-volume-1", "license": "CC BY-NC-SA" },
+      "source": {
+        "author": "OpenStax",
+        "title": "University Physics Volume 1",
+        "url": "https://openstax.org/details/books/university-physics-volume-1",
+        "license": "CC BY-NC-SA"
+      },
       "format": "eleventy",
-      "language": ["JavaScript", "HTML"],
+      "language": [
+        "JavaScript",
+        "HTML"
+      ],
       "description": "Eleventy HTML edition of OpenStax University Physics Volumes 1-3.",
       "deployedUrl": "https://quadriviumpress.github.io/university-physics-bundle/",
-      "subjectTopics": ["physics", "university-physics"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "physics",
+        "university-physics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
-
     {
       "name": "mecmath-trigonometry",
       "displayName": "Trigonometry",
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Michael Corral", "title": "Trigonometry", "url": null, "license": "CC BY-SA 4.0" },
+      "source": {
+        "author": "Michael Corral",
+        "title": "Trigonometry",
+        "url": null,
+        "license": "CC BY-SA 4.0"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "The free book Trigonometry, by Michael Corral (Schoolcraft College).",
       "deployedUrl": "https://quadriviumpress.com/mecmath-trigonometry/",
-      "subjectTopics": ["mathematics", "trigonometry"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "mathematics",
+        "trigonometry"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -384,13 +724,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Michael Corral", "title": "Elementary Calculus", "url": null, "license": "GNU FDL 1.3" },
+      "source": {
+        "author": "Michael Corral",
+        "title": "Elementary Calculus",
+        "url": null,
+        "license": "GNU FDL 1.3"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Eleventy web edition of Michael Corral's Elementary Calculus (LaTeX source to HTML).",
       "deployedUrl": "https://quadriviumpress.com/mecmath-elementary-calculus/",
-      "subjectTopics": ["mathematics", "calculus"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "mathematics",
+        "calculus"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -399,13 +754,28 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "Michael Corral", "title": "Vector Calculus", "url": null, "license": "GNU FDL 1.2" },
+      "source": {
+        "author": "Michael Corral",
+        "title": "Vector Calculus",
+        "url": null,
+        "license": "GNU FDL 1.2"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Eleventy web edition of Michael Corral's Vector Calculus (LaTeX source to HTML).",
       "deployedUrl": "https://quadriviumpress.com/mecmath-vector-calculus/",
-      "subjectTopics": ["mathematics", "vector-calculus"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "mathematics",
+        "vector-calculus"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
     {
@@ -414,16 +784,30 @@
       "type": "book",
       "isBook": true,
       "lineage": "public-domain-adaptation",
-      "source": { "author": "William F. Trench", "title": "Elementary Differential Equations", "url": null, "license": "CC BY-NC-SA 3.0" },
+      "source": {
+        "author": "William F. Trench",
+        "title": "Elementary Differential Equations",
+        "url": null,
+        "license": "CC BY-NC-SA 3.0"
+      },
       "format": "eleventy",
-      "language": ["TeX", "JavaScript"],
+      "language": [
+        "TeX",
+        "JavaScript"
+      ],
       "description": "Elementary Differential Equations by William F. Trench.",
       "deployedUrl": "https://quadriviumpress.com/differentialEquations/",
-      "subjectTopics": ["mathematics", "differential-equations"],
-      "build": { "installCommand": "npm ci", "buildCommand": "npm run build", "outputDir": "_site" },
+      "subjectTopics": [
+        "mathematics",
+        "differential-equations"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
-
     {
       "name": "musicTheory",
       "displayName": "Open Music Theory",
@@ -432,14 +816,23 @@
       "lineage": "original",
       "source": null,
       "format": "jekyll",
-      "language": ["Markdown", "Ruby", "LilyPond"],
+      "language": [
+        "Markdown",
+        "Ruby",
+        "LilyPond"
+      ],
       "description": "Textbook for music theory and aural skills.",
       "deployedUrl": null,
-      "subjectTopics": ["music-theory"],
-      "build": { "installCommand": "bundle install", "buildCommand": "bundle exec jekyll build", "outputDir": "_site" },
+      "subjectTopics": [
+        "music-theory"
+      ],
+      "build": {
+        "installCommand": "bundle install",
+        "buildCommand": "bundle exec jekyll build",
+        "outputDir": "_site"
+      },
       "status": "active"
     },
-
     {
       "name": "osbooks-astronomy",
       "displayName": "osbooks-astronomy (upstream reference)",
@@ -448,7 +841,9 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["XML"],
+      "language": [
+        "XML"
+      ],
       "description": "Raw OpenStax CNXML source for Astronomy 2e, kept as the ground-truth upstream reference for the astronomy edition.",
       "deployedUrl": null,
       "subjectTopics": [],
@@ -462,7 +857,9 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["XML"],
+      "language": [
+        "XML"
+      ],
       "description": "Raw OpenStax CNXML source for the Calculus bundle, kept as the ground-truth upstream reference for calculus-bundle.",
       "deployedUrl": null,
       "subjectTopics": [],
@@ -476,7 +873,10 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["HTML", "XML"],
+      "language": [
+        "HTML",
+        "XML"
+      ],
       "description": "Raw OpenStax CNXML source for the College Physics bundle, kept as the ground-truth upstream reference for college-physics-bundle.",
       "deployedUrl": null,
       "subjectTopics": [],
@@ -490,7 +890,9 @@
       "lineage": null,
       "source": null,
       "format": null,
-      "language": ["XML"],
+      "language": [
+        "XML"
+      ],
       "description": "Raw OpenStax CNXML source for the University Physics bundle, kept as the ground-truth upstream reference for university-physics-bundle.",
       "deployedUrl": null,
       "subjectTopics": [],
