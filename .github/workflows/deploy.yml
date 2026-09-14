@@ -124,6 +124,10 @@ jobs:
 
       - name: Pre-build step
         if: inputs.pre-build-command != ''
+        env:
+          # Callers that fetch Exports artifacts/releases via `gh` need this;
+          # Actions provides GITHUB_TOKEN, but the CLI looks for GH_TOKEN.
+          GH_TOKEN: ${{ github.token }}
         run: ${{ inputs.pre-build-command }}
 
       - name: Build
