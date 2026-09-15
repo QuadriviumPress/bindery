@@ -389,7 +389,7 @@
       "status": "active"
     },
     {
-      "name": "ClassicalMechanics",
+      "name": "classicalMechanics",
       "displayName": "Essentials of Classical Mechanics",
       "type": "book",
       "isBook": true,
@@ -406,7 +406,7 @@
         "JavaScript"
       ],
       "description": "Eleventy web edition of Ryan D. Martin's Essentials of Classical Mechanics (LaTeX source rendered to HTML).",
-      "deployedUrl": "http://quadriviumpress.com/ClassicalMechanics/",
+      "deployedUrl": "http://quadriviumpress.com/classicalMechanics/",
       "subjectTopics": [
         "physics",
         "classical-mechanics"
@@ -419,7 +419,7 @@
       "status": "active"
     },
     {
-      "name": "ElectromagneticsVolOneTextbook",
+      "name": "electromagneticsVolOneTextbook",
       "displayName": "Electromagnetics Vol. 1",
       "type": "book",
       "isBook": true,
@@ -436,7 +436,7 @@
         "JavaScript"
       ],
       "description": "Eleventy web edition of Ellingson's Electromagnetics Vol. 1 (LaTeX source rendered to HTML).",
-      "deployedUrl": "https://quadriviumpress.com/ElectromagneticsVolOneTextbook/",
+      "deployedUrl": "https://quadriviumpress.com/electromagneticsVolOneTextbook/",
       "subjectTopics": [
         "physics",
         "electromagnetics"
@@ -449,7 +449,7 @@
       "status": "active"
     },
     {
-      "name": "ElectromagneticsVolTwoTextbook",
+      "name": "electromagneticsVolTwoTextbook",
       "displayName": "Electromagnetics Vol. 2",
       "type": "book",
       "isBook": true,
@@ -466,7 +466,7 @@
         "JavaScript"
       ],
       "description": "Eleventy web edition of Ellingson's Electromagnetics Vol. 2 (LaTeX source rendered to HTML).",
-      "deployedUrl": "https://quadriviumpress.com/ElectromagneticsVolTwoTextbook/",
+      "deployedUrl": "https://quadriviumpress.com/electromagneticsVolTwoTextbook/",
       "subjectTopics": [
         "physics",
         "electromagnetics"
