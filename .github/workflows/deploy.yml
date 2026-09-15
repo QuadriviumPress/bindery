@@ -1,6 +1,6 @@
 # Reusable GitHub Pages deploy workflow for QuadriviumPress book repos.
-# output-dir varies by format (MyST: _build/html, Eleventy: _site, Jekyll:
-# _site) so callers must set it explicitly; see structure/repos.json's
+# output-dir varies by format (MyST: _build/html, Eleventy: _site) so
+# callers must set it explicitly; see structure/repos.json's
 # build.outputDir for each repo.
 #
 # Optional hooks cover the MyST “capability profiles” without forking the

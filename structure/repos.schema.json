@@ -87,7 +87,7 @@
             { "type": "null" },
             {
               "type": "string",
-              "enum": ["myst", "eleventy", "jekyll", "jupyter-book", "static-html"]
+              "enum": ["myst", "eleventy", "jupyter-book", "static-html"]
             }
           ]
         },
@@ -140,7 +140,7 @@
             "properties": {
               "isBook": { "const": true },
               "lineage": { "type": "string", "enum": ["original", "openstax-remix", "public-domain-adaptation"] },
-              "format": { "type": "string", "enum": ["myst", "eleventy", "jekyll", "jupyter-book", "static-html"] }
+              "format": { "type": "string", "enum": ["myst", "eleventy", "jupyter-book", "static-html"] }
             }
           },
           "else": {

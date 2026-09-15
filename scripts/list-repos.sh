@@ -14,7 +14,7 @@ Options:
   --type TYPE        Filter by repos.json type field
   --status STATUS    Filter by status (active|draft|wip|archived|template)
   --lineage LINEAGE  Filter by lineage (original|openstax-remix|public-domain-adaptation)
-  --format FORMAT    Filter by build format (myst|eleventy|jekyll|jupyter-book|static-html)
+  --format FORMAT    Filter by build format (myst|eleventy|jupyter-book|static-html)
   --json             Output JSON
   --names            Output names only (one per line)
   --paths            Output local workspace paths

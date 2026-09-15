@@ -2,7 +2,7 @@
 # every pull request so a broken conversion never reaches main. Node/Python
 # toolchains are auto-detected from the caller's checkout; only the build
 # command has to be told what to run, since it differs by format (myst,
-# eleventy, jekyll, ...).
+# eleventy, ...).
 name: CI (reusable)
 
 on:

@@ -815,21 +815,21 @@
       "isBook": true,
       "lineage": "original",
       "source": null,
-      "format": "jekyll",
+      "format": "myst",
       "language": [
         "Markdown",
-        "Ruby",
+        "JavaScript",
         "LilyPond"
       ],
-      "description": "Textbook for music theory and aural skills.",
+      "description": "MyST Markdown edition of Open Music Theory, an interactive textbook for college-level music theory and aural skills.",
       "deployedUrl": null,
       "subjectTopics": [
         "music-theory"
       ],
       "build": {
-        "installCommand": "bundle install",
-        "buildCommand": "bundle exec jekyll build",
-        "outputDir": "_site"
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
       },
       "status": "active"
     },

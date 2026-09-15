@@ -35,7 +35,7 @@ detail lives in [`skills/quadrivium-repo-structure/SKILL.md`](skills/quadrivium-
     deploy:
       uses: QuadriviumPress/bindery/.github/workflows/deploy.yml@main
       with:
-        output-dir: _build/html   # MyST; Eleventy/Jekyll use _site
+        output-dir: _build/html   # MyST; Eleventy uses _site
       permissions:
         contents: read
         pages: write

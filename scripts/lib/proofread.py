@@ -207,9 +207,9 @@ def content_roots_for(repo_dir: Path) -> list[Path]:
         for p in sorted(repo_dir.glob(pattern)):
             if p.is_dir() and not should_skip_dirname(p.name):
                 roots.append(p)
-    # MusicTheory / Jekyll fallback
+    # Fallback content roots when standard dirs are absent
     if not roots:
-        for name in ("_chapters", "chapters", "docs"):
+        for name in ("_chapters", "docs"):
             p = repo_dir / name
             if p.is_dir():
                 roots.append(p)

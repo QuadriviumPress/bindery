@@ -143,9 +143,6 @@ case "$FORMAT" in
   eleventy)
     [[ -f "$REPO_PATH/eleventy.config.js" ]] && pass "eleventy.config.js present" || fail "format is eleventy but eleventy.config.js is missing"
     ;;
-  jekyll)
-    [[ -f "$REPO_PATH/_config.yml" ]] && pass "_config.yml present" || fail "format is jekyll but _config.yml is missing"
-    ;;
 esac
 
 # Node engines pin, when the repo is Node-based

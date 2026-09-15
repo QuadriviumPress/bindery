@@ -16,7 +16,7 @@ QuadriviumPress's sister org of interactive physics simulations -- see
 
 ## Why a catalog instead of submodules
 
-QuadriviumPress is 25+ book repos across three build formats (MyST, Eleventy, Jekyll), plus
+QuadriviumPress is 25+ book repos across two build formats (MyST, Eleventy), plus
 a handful of `osbooks-*` repos that just hold raw OpenStax source as an upstream reference.
 Each book deploys independently to its own GitHub Pages site; nothing needs a synchronized
 whole-org checkout. [`structure/repos.json`](structure/repos.json) is the single source of
@@ -76,7 +76,7 @@ jobs:
   ci:
     uses: QuadriviumPress/bindery/.github/workflows/ci.yml@main
     with:
-      build-command: npm run build        # myst build --html / eleventy / jekyll build
+      build-command: npm run build        # myst build --html / eleventy
       install-hunspell: true               # if the build spell-checks prose
 ```
 
@@ -92,7 +92,7 @@ jobs:
     uses: QuadriviumPress/bindery/.github/workflows/deploy.yml@main
     with:
       build-command: npm run build
-      output-dir: _build/html             # MyST; Eleventy/Jekyll use _site
+      output-dir: _build/html             # MyST; Eleventy uses _site
     permissions:
       contents: read
       pages: write
@@ -120,7 +120,7 @@ scripts/check-repo-compliance.sh /path/to/book-repo
 [`structure/repos.json`](structure/repos.json) lists all QuadriviumPress repositories with
 metadata: `displayName`, `type` (book/bundle/tool/config/site), `lineage` (original /
 openstax-remix / public-domain-adaptation), `source` (author/title/url/license for adapted
-works), `format` (myst/eleventy/jekyll), `deployedUrl`, `subjectTopics`, `build` recipe, and
+works), `format` (myst/eleventy), `deployedUrl`, `subjectTopics`, `build` recipe, and
 `status`. Schema: [`structure/repos.schema.json`](structure/repos.schema.json), validated by
 [`scripts/check-repos-catalog.sh`](scripts/check-repos-catalog.sh). Query it:
 

@@ -1,6 +1,6 @@
 ## Result
 
-  Using “pure MyST” to mean that MyST is the primary site generator—rather than Eleventy, Jekyll, or an OpenStax CNXML
+  Using “pure MyST” to mean that MyST is the primary site generator—rather than Eleventy or an OpenStax CNXML
   pipeline—I found:
 
   - 12 active MyST textbooks recorded in Bindery’s repository catalog (bindery/structure/repos.json).

@@ -1,11 +1,11 @@
 ---
 name: quadrivium-repo-structure
-description: The directory layout every QuadriviumPress book repo follows, by build format (MyST / Eleventy / Jekyll). Read this before adding a chapter, script, or workflow file.
+description: The directory layout every QuadriviumPress book repo follows, by build format (MyST / Eleventy). Read this before adding a chapter, script, or workflow file.
 ---
 
 # QuadriviumPress repo structure
 
-QuadriviumPress books are built with one of three formats. `structure/repos.json` in
+QuadriviumPress books are built with one of two formats. `structure/repos.json` in
 [bindery](https://github.com/QuadriviumPress/bindery) records which one each repo uses
 (`format` field) and where its build output lands (`build.outputDir`). Full baseline: see
 [`../../CONVENTIONS.md`](../../CONVENTIONS.md).
@@ -46,12 +46,6 @@ LICENSE                # ships with the repo -- see quadrivium-attribution
 ```
 
 Build: `npm run build` -> `eleventy` -> `_site`.
-
-## Jekyll repos
-
-`musicTheory` is the only current example: `_config.yml`, `Gemfile`, content as loose
-Markdown pages at the repo root plus `_includes/` / `_layouts/` / `_sass/`. Build:
-`bundle exec jekyll build` -> `_site`.
 
 ## Everything shares
 
