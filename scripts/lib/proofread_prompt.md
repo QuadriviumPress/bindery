@@ -10,8 +10,11 @@ Hard rules:
 
 Task:
 1. Read the target file (chunk bounds if provided: lines {line_start}-{line_end}).
-2. Find high-confidence spelling / grammar / clear typo issues in textbook prose.
-3. Ignore math, markup, code, URLs, citations, and intentional technical vocabulary.
+2. Make a dedicated spelling and word-error pass, then a separate grammar and
+   sentence-level typo pass over all prose in the assigned lines.
+3. Report high- and medium-confidence issues. For medium-confidence findings,
+   give the contextual reason in `notes`.
+4. Ignore math, markup, code, URLs, citations, and intentional technical vocabulary.
 
 {mode_instructions}
 
@@ -33,4 +36,4 @@ Return ONLY valid JSON (no markdown fences) with this shape:
   ]
 }}
 
-If there are no solid issues, return `"findings": []`.
+If no issue reaches medium confidence, return `"findings": []`.

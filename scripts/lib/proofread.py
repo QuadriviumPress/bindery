@@ -123,6 +123,7 @@ class Settings:
     max_jobs: int | None = None
     mode: str = "report"  # report | fix
     model: str | None = None
+    reasoning_effort: str = "medium"
     chunk_chars: int = 24_000
     repo_filter: list[str] | None = None
     dry_run: bool = False
@@ -491,6 +492,10 @@ def run_codex(
         # Keep each job single-threaded: no nested Codex fan-out.
         "-c",
         "agents.enabled=false",
+        # A balanced reasoning level catches less-obvious real-word and grammar
+        # errors without turning this bounded proofreader into a heavy agent run.
+        "-c",
+        f'model_reasoning_effort="{settings.reasoning_effort}"',
     ]
     # Prefer the custom agent via prompt instruction; model override optional.
     if settings.model:
@@ -502,7 +507,7 @@ def run_codex(
 
     if settings.dry_run:
         target = repo_dir / job["path"]
-        print("DRY-RUN:", " ".join(shlex.quote(c) for c in cmd[:12]), "... <prompt>")
+        print("DRY-RUN:", " ".join(shlex.quote(c) for c in cmd[:-1]), "<prompt>")
         print(f"DRY-RUN prompt chars={len(prompt)} target={target}")
         return 0, "", 0.0
 
@@ -750,6 +755,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="report=read-only findings; fix=apply high-confidence edits",
     )
     p.add_argument("--model", default=os.environ.get("PROOFREAD_MODEL"), help="Codex -m override")
+    p.add_argument(
+        "--reasoning-effort",
+        choices=("low", "medium", "high", "xhigh"),
+        default=os.environ.get("PROOFREAD_REASONING_EFFORT", "medium"),
+        help="Codex reasoning effort (default: medium)",
+    )
     p.add_argument("--chunk-chars", type=int, default=24000)
     p.add_argument("--codex-bin", default=os.environ.get("CODEX_BIN", "codex"))
     p.add_argument("--no-install-agent", action="store_true")
@@ -797,6 +808,7 @@ def settings_from_args(args: argparse.Namespace) -> Settings:
         max_jobs=getattr(args, "max_jobs", None),
         mode=args.mode,
         model=args.model,
+        reasoning_effort=args.reasoning_effort,
         chunk_chars=args.chunk_chars,
         repo_filter=getattr(args, "repos", None),
         dry_run=bool(getattr(args, "dry_run", False)),

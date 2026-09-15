@@ -55,6 +55,11 @@ exhausted it exits cleanly; start it again tomorrow.
 
 Review diffs in the target repo before committing — this tool never commits or pushes.
 
+The proofreader uses medium reasoning effort and makes separate word-level and
+sentence-level passes. Report mode includes both high- and medium-confidence
+candidates (with an explanation for medium-confidence items); fix mode still edits
+only high-confidence issues.
+
 ## Pacing knobs
 
 | Flag / env | Default | Meaning |
@@ -64,6 +69,7 @@ Review diffs in the target repo before committing — this tool never commits or
 | `--delay-max` / `PROOFREAD_DELAY_MAX` | `15m` | Max sleep between jobs |
 | `--max-jobs` | unlimited | Cap jobs in this process |
 | `--model` / `PROOFREAD_MODEL` | agent default (`gpt-5.6-terra`) | `codex -m` override |
+| `--reasoning-effort` / `PROOFREAD_REASONING_EFFORT` | `medium` | Codex reasoning depth (`low`, `medium`, `high`, or `xhigh`) |
 | `--chunk-chars` | `24000` | Split large files into chunks |
 | `--state-dir` / `PROOFREAD_STATE_DIR` | `$QUADRIVIUM_WORKSPACE/.proofread` | Queue + reports |
 
