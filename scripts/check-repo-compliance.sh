@@ -103,6 +103,11 @@ if [[ "$STATUS" == "active" && -n "$DEPLOYED_URL" ]]; then
   if [[ -f "$REPO_PATH/.github/workflows/deploy.yml" ]]; then
     if grep -q 'QuadriviumPress/bindery/.github/workflows/deploy.yml' "$REPO_PATH/.github/workflows/deploy.yml" 2>/dev/null; then
       pass "deploy.yml calls bindery's reusable deploy workflow"
+      if grep -q 'actions:[[:space:]]*read' "$REPO_PATH/.github/workflows/deploy.yml" 2>/dev/null; then
+        pass "deploy.yml grants actions:read for bindery reusable deploy"
+      else
+        fail "deploy.yml must grant actions: read (bindery deploy requests it; otherwise startup fails)"
+      fi
     else
       warn "deploy.yml does not call QuadriviumPress/bindery/.github/workflows/deploy.yml -- not yet migrated"
     fi
