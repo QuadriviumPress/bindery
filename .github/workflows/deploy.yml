@@ -128,13 +128,19 @@ jobs:
           # Callers that fetch Exports artifacts/releases via `gh` need this;
           # Actions provides GITHUB_TOKEN, but the CLI looks for GH_TOKEN.
           GH_TOKEN: ${{ github.token }}
+          # Local CLIs (myst, etc.) live here; raw `myst ...` build-commands need PATH.
+          PATH: ${{ github.workspace }}/node_modules/.bin:${{ env.PATH }}
         run: ${{ inputs.pre-build-command }}
 
       - name: Build
+        env:
+          PATH: ${{ github.workspace }}/node_modules/.bin:${{ env.PATH }}
         run: ${{ inputs.build-command }}
 
       - name: Post-build step
         if: inputs.post-build-command != ''
+        env:
+          PATH: ${{ github.workspace }}/node_modules/.bin:${{ env.PATH }}
         run: ${{ inputs.post-build-command }}
 
       - name: Upload Pages artifact
