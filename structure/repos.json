@@ -822,7 +822,7 @@
         "LilyPond"
       ],
       "description": "MyST Markdown edition of Open Music Theory, an interactive textbook for college-level music theory and aural skills.",
-      "deployedUrl": null,
+      "deployedUrl": "https://quadriviumpress.com/musicTheory/",
       "subjectTopics": [
         "music-theory"
       ],
