@@ -99,6 +99,32 @@
       "status": "active"
     },
     {
+      "name": "modernPhysicsLab",
+      "displayName": "Modern Physics Laboratory",
+      "type": "book",
+      "isBook": true,
+      "lineage": "original",
+      "source": null,
+      "format": "myst",
+      "language": [
+        "Markdown"
+      ],
+      "description": "MyST Markdown laboratory manual: fourteen weekly experiments accompanying the Modern Physics textbook.",
+      "deployedUrl": "https://quadriviumpress.com/modernPhysicsLab/",
+      "subjectTopics": [
+        "physics",
+        "modern-physics",
+        "laboratory",
+        "undergraduate"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
+    },
+    {
       "name": "opticsTextbook",
       "displayName": "Optics Textbook",
       "type": "book",
