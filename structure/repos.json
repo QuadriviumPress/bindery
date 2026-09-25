@@ -384,6 +384,33 @@
       "status": "active"
     },
     {
+      "name": "physicsOfMusic",
+      "displayName": "Physics of Music",
+      "type": "book",
+      "isBook": true,
+      "lineage": "original",
+      "source": null,
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "Python",
+        "JavaScript"
+      ],
+      "description": "An open undergraduate textbook on the physics of musical sound: vibration and waves, hearing, instruments, and room acoustics.",
+      "deployedUrl": "https://quadriviumpress.com/physicsOfMusic/",
+      "subjectTopics": [
+        "physics",
+        "acoustics",
+        "music"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
+    },
+    {
       "name": "dynamicsTextbook",
       "displayName": "Dynamics Textbook",
       "type": "book",
@@ -849,6 +876,36 @@
       ],
       "description": "MyST Markdown edition of Open Music Theory, an interactive textbook for college-level music theory and aural skills.",
       "deployedUrl": "https://quadriviumpress.com/musicTheory/",
+      "subjectTopics": [
+        "music-theory"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
+    },
+    {
+      "name": "understandingMusicTheory",
+      "displayName": "Understanding Music Theory",
+      "type": "book",
+      "isBook": true,
+      "lineage": "public-domain-adaptation",
+      "source": {
+        "author": "Catherine Schmidt-Jones",
+        "title": "Understanding Basic Music Theory",
+        "url": "https://github.com/cnx-user-books/cnxbook-understanding-basic-music-theory",
+        "license": "CC BY 2.0"
+      },
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "JavaScript",
+        "Python"
+      ],
+      "description": "MyST Markdown edition of Catherine Schmidt-Jones's Understanding Basic Music Theory, covering notation, acoustics, scales, harmony, and musicianship.",
+      "deployedUrl": "https://quadriviumpress.com/understandingMusicTheory/",
       "subjectTopics": [
         "music-theory"
       ],
