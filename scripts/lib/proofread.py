@@ -565,14 +565,6 @@ def extract_json_payload(text: str) -> dict[str, Any] | None:
     return None
 
 
-def looks_like_rate_limit(rc: int, last: str, stderr_path: Path | None) -> bool:
-    blob = last.lower()
-    if stderr_path and stderr_path.exists():
-        blob += "\n" + stderr_path.read_text(encoding="utf-8", errors="replace").lower()
-    needles = ("429", "too many requests", "rate limit", "usage limit", "quota")
-    return any(n in blob for n in needles) or rc in {429}
-
-
 def cmd_run(settings: Settings) -> int:
     if not shutil.which(settings.codex_bin) and not settings.dry_run:
         print(f"error: `{settings.codex_bin}` not on PATH", file=sys.stderr)
@@ -648,17 +640,6 @@ def cmd_run(settings: Settings) -> int:
 
         state.add_active_time(elapsed, job["id"])
         job["attempts"] = int(job.get("attempts", 0)) + 1
-
-        stderr_path = state.runs_dir / f"{job['id']}.stderr.txt"
-        if looks_like_rate_limit(rc, last, stderr_path):
-            job["status"] = "pending"
-            job["last_error"] = "rate_limited"
-            state.save_queue(queue)
-            print(
-                "Rate limit / usage signal detected. "
-                "Leaving job pending and exiting to stay below radar."
-            )
-            return 3
 
         report = extract_json_payload(last) or {
             "job_id": job["id"],
