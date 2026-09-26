@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Paced Codex proofreading queue for the QuadriviumPress fleet.
+"""Codex proofreading queue for the QuadriviumPress fleet.
 
-Runs one `codex exec` job at a time, tracks a daily *active* time budget
-(Codex wall time inside each invocation), and sleeps between jobs so the
-workload stays under a 5h Codex limit and avoids bursty rate-limit patterns.
+Runs one `codex exec` job at a time and moves straight to the next file.
+A daily active-time cap and an inter-job sleep are optional and off by
+default; set them when a quieter pace is wanted.
 """
 
 from __future__ import annotations
@@ -50,6 +50,14 @@ SKIP_DIR_NAMES = {
     "oem-*-media",  # not matched literally; filtered below
 }
 CONTENT_EXTS = {".md", ".myst", ".tex", ".cnxml", ".markdown"}
+# 0 means no calendar-day cap on active Codex time.
+DEFAULT_DAILY_BUDGET = "0"
+DEFAULT_DELAY_MIN = "0"
+DEFAULT_DELAY_MAX = "5s"
+DEFAULT_CHUNK_CHARS = 64_000
+# A broken CLI should not walk the whole queue.
+MAX_CONSECUTIVE_ERRORS = 8
+
 CONTENT_ROOT_NAMES = (
     "chapters",
     "content",
@@ -61,6 +69,14 @@ CONTENT_ROOT_NAMES = (
     "source",
     "_posts",
 )
+
+# Repositories whose authoritative prose source cannot be inferred from the
+# usual content-root conventions. Keep this list deliberately narrow: the
+# Trench distribution contains several overlapping editions, while the web
+# build documents TRENCH_DIFFEQ_BV.tex as its edition of record.
+REPO_CONTENT_FILES = {
+    "differentialEquations": ("trench-distro/TRENCH_DIFFEQ_BV.tex",),
+}
 
 
 def utc_now() -> datetime:
@@ -117,14 +133,14 @@ def human_duration(seconds: float) -> str:
 @dataclass
 class Settings:
     state_dir: Path
-    daily_budget_s: int = 4 * 3600 + 30 * 60  # 4h30m active Codex time
-    delay_min_s: int = 8 * 60
-    delay_max_s: int = 15 * 60
+    daily_budget_s: int = 0  # 0 = no daily cap
+    delay_min_s: int = 0
+    delay_max_s: int = 5
     max_jobs: int | None = None
     mode: str = "report"  # report | fix
     model: str | None = None
     reasoning_effort: str = "medium"
-    chunk_chars: int = 24_000
+    chunk_chars: int = DEFAULT_CHUNK_CHARS
     repo_filter: list[str] | None = None
     dry_run: bool = False
     install_agent: bool = True
@@ -174,6 +190,8 @@ class ProofreadState:
         return float(day.get("active_seconds", 0.0))
 
     def remaining_budget(self) -> float:
+        if self.settings.daily_budget_s <= 0:
+            return float("inf")
         return max(0.0, self.settings.daily_budget_s - self.day_used())
 
     def add_active_time(self, seconds: float, job_id: str) -> None:
@@ -217,11 +235,49 @@ def content_roots_for(repo_dir: Path) -> list[Path]:
     return roots
 
 
-def iter_content_files(repo_dir: Path) -> list[Path]:
+def myst_toc_files(repo_dir: Path) -> list[Path]:
+    """Return existing prose files referenced by a MyST project's TOC.
+
+    This intentionally parses only ``file:`` scalars instead of loading all
+    YAML. MyST TOCs use this small, stable subset, and avoiding a PyYAML
+    dependency keeps the fleet runner self-contained.
+    """
+    config = repo_dir / "myst.yml"
+    if not config.is_file():
+        return []
+
     files: list[Path] = []
+    file_line = re.compile(r"^\s*-?\s*file:\s*(.+?)\s*$")
+    for line in config.read_text(encoding="utf-8", errors="replace").splitlines():
+        match = file_line.match(line)
+        if not match:
+            continue
+        value = match.group(1).split(" #", 1)[0].strip().strip("'\"")
+        if not value or "://" in value:
+            continue
+        rel = Path(value)
+        candidates = (
+            [rel]
+            if rel.suffix
+            else [rel.with_suffix(ext) for ext in CONTENT_EXTS]
+        )
+        for candidate in candidates:
+            path = repo_dir / candidate
+            if path.is_file() and path.suffix.lower() in CONTENT_EXTS:
+                files.append(path)
+                break
+    return files
+
+
+def iter_content_files(repo_dir: Path) -> list[Path]:
+    files: list[Path] = myst_toc_files(repo_dir)
+
+    for rel in REPO_CONTENT_FILES.get(repo_dir.name, ()):
+        path = repo_dir / rel
+        if path.is_file():
+            files.append(path)
+
     roots = content_roots_for(repo_dir)
-    if not roots:
-        return files
     for root in roots:
         for dirpath, dirnames, filenames in os.walk(root):
             dirnames[:] = sorted(d for d in dirnames if not should_skip_dirname(d))
@@ -339,8 +395,13 @@ def cmd_init(settings: Settings) -> int:
                     job["report_path"] = prev.get("report_path")
                     job["attempts"] = prev.get("attempts", 0)
                     refreshed += 1
-                elif prev and prev.get("status") in {"done", "skipped", "error"}:
-                    # content changed or retryable: re-queue changed files
+                elif prev and prev.get("status") == "error":
+                    # Errors are retryable even when the content is unchanged;
+                    # they commonly represent a transient Codex/environment failure.
+                    job["attempts"] = prev.get("attempts", 0)
+                    added += 1
+                elif prev and prev.get("status") in {"done", "skipped"}:
+                    # Re-queue completed or skipped jobs when their content changed.
                     if prev.get("fingerprint") != fp:
                         job["status"] = "pending"
                         added += 1
@@ -391,19 +452,25 @@ def cmd_status(settings: Settings) -> int:
         br = by_repo.setdefault(j["repo"], {})
         br[j["status"]] = br.get(j["status"], 0) + 1
     used = state.day_used()
-    rem = state.remaining_budget()
     print(f"state: {state.state_dir}")
     print(f"jobs:  {len(jobs)}  {counts}")
-    print(
-        f"today ({today_key()}): used {human_duration(used)} / "
-        f"{human_duration(settings.daily_budget_s)} "
-        f"(remaining {human_duration(rem)})"
-    )
-    print(
-        f"pacing: delay {human_duration(settings.delay_min_s)}"
-        f"–{human_duration(settings.delay_max_s)} between jobs; "
-        f"mode={settings.mode}"
-    )
+    if settings.daily_budget_s <= 0:
+        print(f"today ({today_key()}): used {human_duration(used)} (no daily cap)")
+    else:
+        rem = state.remaining_budget()
+        print(
+            f"today ({today_key()}): used {human_duration(used)} / "
+            f"{human_duration(settings.daily_budget_s)} "
+            f"(remaining {human_duration(rem)})"
+        )
+    if settings.delay_max_s <= 0:
+        pace = "no sleep between jobs"
+    else:
+        pace = (
+            f"delay {human_duration(settings.delay_min_s)}"
+            f"–{human_duration(settings.delay_max_s)} between jobs"
+        )
+    print(f"pacing: {pace}; mode={settings.mode}; chunk={settings.chunk_chars}")
     print("\nBy repo (pending/done/error):")
     for repo in sorted(by_repo):
         br = by_repo[repo]
@@ -565,6 +632,21 @@ def extract_json_payload(text: str) -> dict[str, Any] | None:
     return None
 
 
+def budget_blocks(settings: Settings, state: ProofreadState) -> bool:
+    """True when a configured daily cap has about a minute or less left."""
+    if settings.daily_budget_s <= 0:
+        return False
+    return state.remaining_budget() <= 60
+
+
+def inter_job_delay(settings: Settings) -> int:
+    if settings.delay_max_s <= 0:
+        return 0
+    if settings.jitter and settings.delay_max_s > settings.delay_min_s:
+        return random.randint(settings.delay_min_s, settings.delay_max_s)
+    return settings.delay_min_s
+
+
 def cmd_run(settings: Settings) -> int:
     if not shutil.which(settings.codex_bin) and not settings.dry_run:
         print(f"error: `{settings.codex_bin}` not on PATH", file=sys.stderr)
@@ -578,9 +660,9 @@ def cmd_run(settings: Settings) -> int:
         return 1
 
     completed_this_session = 0
+    consecutive_errors = 0
     while True:
-        remaining = state.remaining_budget()
-        if remaining <= 60:
+        if budget_blocks(settings, state):
             print(
                 f"Daily active budget exhausted "
                 f"({human_duration(settings.daily_budget_s)}). Stopping until tomorrow."
@@ -603,7 +685,10 @@ def cmd_run(settings: Settings) -> int:
             f"\n=== job {job['id']}  {job['repo']}/{job['path']} "
             f"lines {job.get('line_start')}-{job.get('line_end')} ==="
         )
-        print(f"budget remaining today: {human_duration(remaining)}")
+        if settings.daily_budget_s <= 0:
+            print(f"active today: {human_duration(state.day_used())} (no daily cap)")
+        else:
+            print(f"budget remaining today: {human_duration(state.remaining_budget())}")
 
         if not abs_path.is_file():
             job["status"] = "skipped"
@@ -632,10 +717,9 @@ def cmd_run(settings: Settings) -> int:
                 is None
             ):
                 break
-            print(
-                f"DRY-RUN would sleep {human_duration(settings.delay_min_s)} "
-                "before next job..."
-            )
+            delay = inter_job_delay(settings)
+            if delay > 0:
+                print(f"DRY-RUN would sleep {human_duration(delay)} before next job...")
             continue
 
         state.add_active_time(elapsed, job["id"])
@@ -665,19 +749,34 @@ def cmd_run(settings: Settings) -> int:
         state.save_queue(queue)
         completed_this_session += 1
 
-        # More pending? Sleep before the next Codex call.
+        if rc == 0:
+            consecutive_errors = 0
+        else:
+            consecutive_errors += 1
+            print(
+                f"Codex job failed ({consecutive_errors} in a row). "
+                "Continuing with the next pending job."
+            )
+            if consecutive_errors >= MAX_CONSECUTIVE_ERRORS:
+                print(
+                    f"{MAX_CONSECUTIVE_ERRORS} consecutive failures. "
+                    "Stopping so the error can be diagnosed. "
+                    "Run init to requeue failed jobs."
+                )
+                cmd_status(settings)
+                return 4
+
         if next_pending(queue, settings.repo_filter) is None:
             break
         if settings.max_jobs is not None and completed_this_session >= settings.max_jobs:
             break
-        if state.remaining_budget() <= 60:
+        if budget_blocks(settings, state):
             break
 
-        delay = settings.delay_min_s
-        if settings.jitter and settings.delay_max_s > settings.delay_min_s:
-            delay = random.randint(settings.delay_min_s, settings.delay_max_s)
-        print(f"sleeping {human_duration(delay)} before next job...")
-        time.sleep(delay)
+        delay = inter_job_delay(settings)
+        if delay > 0:
+            print(f"sleeping {human_duration(delay)} before next job...")
+            time.sleep(delay)
 
     cmd_status(settings)
     return 0
@@ -703,7 +802,7 @@ def cmd_reset_day(settings: Settings) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Paced Codex proofreader for QuadriviumPress textbooks",
+        description="Codex proofreader for QuadriviumPress textbooks",
     )
     p.add_argument(
         "--state-dir",
@@ -714,20 +813,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--daily-budget",
         type=parse_duration,
-        default=parse_duration(os.environ.get("PROOFREAD_DAILY_BUDGET", "4h30m")),
-        help="Max active Codex time per calendar day (default: 4h30m)",
+        default=parse_duration(os.environ.get("PROOFREAD_DAILY_BUDGET", DEFAULT_DAILY_BUDGET)),
+        help="Max active Codex time per calendar day (default: 0, no cap)",
     )
     p.add_argument(
         "--delay-min",
         type=parse_duration,
-        default=parse_duration(os.environ.get("PROOFREAD_DELAY_MIN", "8m")),
-        help="Minimum sleep between jobs (default: 8m)",
+        default=parse_duration(os.environ.get("PROOFREAD_DELAY_MIN", DEFAULT_DELAY_MIN)),
+        help="Minimum sleep between jobs (default: 0)",
     )
     p.add_argument(
         "--delay-max",
         type=parse_duration,
-        default=parse_duration(os.environ.get("PROOFREAD_DELAY_MAX", "15m")),
-        help="Maximum sleep between jobs (default: 15m)",
+        default=parse_duration(os.environ.get("PROOFREAD_DELAY_MAX", DEFAULT_DELAY_MAX)),
+        help="Maximum sleep between jobs (default: 5s)",
     )
     p.add_argument(
         "--mode",
@@ -742,7 +841,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=os.environ.get("PROOFREAD_REASONING_EFFORT", "medium"),
         help="Codex reasoning effort (default: medium)",
     )
-    p.add_argument("--chunk-chars", type=int, default=24000)
+    p.add_argument("--chunk-chars", type=int, default=DEFAULT_CHUNK_CHARS)
     p.add_argument("--codex-bin", default=os.environ.get("CODEX_BIN", "codex"))
     p.add_argument("--no-install-agent", action="store_true")
     p.add_argument("--include-osbooks", action="store_true")

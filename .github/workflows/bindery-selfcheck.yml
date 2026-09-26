@@ -36,6 +36,9 @@ jobs:
             bash -n "$f"
           done
 
+      - name: Proofreader unit tests
+        run: python3 -m unittest discover -s scripts/tests -p 'test_*.py'
+
       - name: Validate Claude plugin marketplace
         run: python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
 

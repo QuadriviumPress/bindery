@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Launcher for long-running paced Codex proofread inside tmux.
+# Launcher for a long-running Codex proofread inside tmux.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"

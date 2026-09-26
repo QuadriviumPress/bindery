@@ -34,7 +34,7 @@ pointer-bump commits to keep in sync.
 | [`.github/workflows/bindery-selfcheck.yml`](.github/workflows/bindery-selfcheck.yml) | Validates bindery's own invariants: catalog schema, shell syntax, plugin manifest, Pages freshness |
 | [`.github/workflows/pages.yml`](.github/workflows/pages.yml) | Deploys `docs/index.html` to `quadriviumpress.github.io/bindery` |
 | [`scripts/`](scripts/) | Catalog query/clone/compliance/pages-generation tooling -- see below |
-| [`doc/codex-proofread.md`](doc/codex-proofread.md) | Paced fleet-wide Codex spelling/typo pass (`scripts/codex-proofread.sh`) |
+| [`doc/codex-proofread.md`](doc/codex-proofread.md) | Fleet-wide Codex spelling/typo pass (`scripts/codex-proofread.sh`) |
 | [`config/`](config/) | Canonical Dependabot and Claude-settings templates |
 | [`structure/repos.json`](structure/repos.json) | Machine-readable catalog of org repositories |
 | [`structure/repos.schema.json`](structure/repos.schema.json) | JSON Schema for the catalog (`schemaVersion` 1.0.0) |

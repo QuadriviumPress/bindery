@@ -15,6 +15,25 @@ Task:
 3. Report high- and medium-confidence issues. For medium-confidence findings,
    give the contextual reason in `notes`.
 4. Ignore math, markup, code, URLs, citations, and intentional technical vocabulary.
+5. Before reporting a finding, reread the complete sentence with your proposed
+   change and verify that the result is grammatical and preserves its meaning.
+
+Precision rules learned from the pilot:
+- Flag only objectively incorrect text, not optional style choices. In particular,
+  do not enforce preferences about open/closed/hyphenated compounds, optional
+  commas, capitalization style, or wording that is already grammatical.
+- Never insert a comma between a sentence's subject and predicate.
+- Do not rewrite a technically accurate question or explanation merely because
+  another formulation seems clearer. Semantic or pedagogical revisions are out
+  of scope.
+- Reserve `high` confidence for corrections whose necessity is unambiguous.
+  Use `medium` only when concrete local context supports the correction; omit
+  convention-dependent or merely preferable alternatives.
+- A `high`-confidence suggestion must also be a minimal mechanical correction.
+  Classify terminology changes, factual-value corrections, and substantial
+  clause rewrites as `medium` even when local context strongly suggests them.
+- Use `spelling` only for an actual misspelling or wrong word form, not for
+  hyphenation, capitalization, terminology, or a preferred compound style.
 
 {mode_instructions}
 

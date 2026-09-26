@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Paced Codex proofreading across the QuadriviumPress fleet.
+# Codex proofreading across the QuadriviumPress fleet.
 # See ../doc/codex-proofread.md
 set -euo pipefail
 
