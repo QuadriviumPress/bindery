@@ -1,6 +1,6 @@
 ---
 name: quadrivium-myst-directives
-description: MyST admonitions, tabs, and the {openphysics}/{phet}/{phet-legacy}/{simulation} interactive-embed directives used across QuadriviumPress MyST books. Read before adding a sidebar, tab-set, or embedded simulation to a chapter.
+description: Tabs and the {openphysics}/{phet}/{phet-legacy}/{simulation} interactive-embed directives used across QuadriviumPress MyST books. Read before adding a sidebar, tab-set, or embedded simulation to a chapter. Exercise and callout roles live in quadrivium-myst-presentation.
 ---
 
 # MyST directives in QuadriviumPress books
@@ -10,8 +10,11 @@ text, headings, math, figures, or exercises.
 
 ## Admonitions
 
-Standard MyST admonitions (`` ```{note} ``, `` ```{tip} ``, etc.) plus, where a chapter
-genuinely has one, an extended/alternate derivation or a "for the curious" aside.
+Callout roles (`{note}`, `{important}`, `{tip}`, `{warning}`) and exercise
+markup are defined in
+[`quadrivium-myst-presentation`](../quadrivium-myst-presentation/SKILL.md).
+An extended derivation or a "for the curious" aside may use another standard
+MyST admonition when the chapter genuinely has one.
 
 ## Tabs
 

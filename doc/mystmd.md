@@ -1,3 +1,8 @@
+> The fleet pin and package contract in this survey are superseded by
+> [`myst-baseline.md`](myst-baseline.md). New books copy
+> `opiniatedMystmdBookTemplate`. This page remains a snapshot of the
+> September 2026 review.
+
 ## Result
 
   Using “pure MyST” to mean that MyST is the primary site generator—rather than Eleventy or an OpenStax CNXML

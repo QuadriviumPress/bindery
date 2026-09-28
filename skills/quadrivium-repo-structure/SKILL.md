@@ -18,6 +18,7 @@ Source of truth is Markdown under `chapters/` (or `front/` + `chapters/` + `back
 
 ```
 myst.yml              # project metadata: title, authors, keywords, TOC
+AGENTS.md             # baseline link, commands, and intentional differences
 index.md              # landing page / table of contents
 preface.md
 SOURCES.md            # per-chapter attribution (see quadrivium-attribution)

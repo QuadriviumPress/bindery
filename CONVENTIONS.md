@@ -51,10 +51,14 @@ detail lives in [`skills/quadrivium-repo-structure/SKILL.md`](skills/quadrivium-
 
 Every active MyST book additionally provides:
 
-- `package.json` with `private: true`, exact `mystmd@1.10.1`, and `start`,
+- `package.json` and `AGENTS.md` matching [`doc/myst-baseline.md`](doc/myst-baseline.md):
+  `private: true`, exact `mystmd@1.11.0` in `devDependencies`, and `start`,
   `build`, `verify`, and `check` scripts. `verify` runs fast structural,
   conversion, execution, or content checks appropriate to that book; `check`
-  is the production-equivalent verification and HTML build.
+  is the production-equivalent verification and HTML build. New books start
+  from `opiniatedMystmdBookTemplate`, which is the starter copy of that baseline.
+  Chapter presentation for new work is
+  [`skills/quadrivium-myst-presentation/SKILL.md`](skills/quadrivium-myst-presentation/SKILL.md).
 - `myst.yml` metadata containing `title`, `short_title`, `description`,
   `authors`, `license`, `open_access: true`, `github`, `keywords`, and a
   non-empty `toc`.

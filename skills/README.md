@@ -7,7 +7,8 @@ repo loads them as a unit instead of vendoring copies.
 | Skill | Covers |
 |---|---|
 | [`quadrivium-repo-structure`](quadrivium-repo-structure/SKILL.md) | The directory layout and files every book repo shares, by format (MyST / Eleventy) |
-| [`quadrivium-myst-directives`](quadrivium-myst-directives/SKILL.md) | MyST admonitions, tabs, and the `{openphysics}` / `{phet}` / `{simulation}` embed directives |
+| [`quadrivium-myst-presentation`](quadrivium-myst-presentation/SKILL.md) | Exercise, callout, and label conventions for MyST chapters |
+| [`quadrivium-myst-directives`](quadrivium-myst-directives/SKILL.md) | Tabs and the `{openphysics}` / `{phet}` / `{simulation}` embed directives |
 | [`quadrivium-attribution`](quadrivium-attribution/SKILL.md) | How source attribution and licensing are documented for adapted vs. original works |
 | [`quadrivium-media-plugins`](quadrivium-media-plugins/SKILL.md) | The `{animation}` / `{audio}` / `{video}` / `{h5p}` plugin family: iframe-plus-fallback architecture, the `BASE_URL` gotcha, adding an animation or embedding a video |
 | [`quadrivium-h5p-activities`](quadrivium-h5p-activities/SKILL.md) | Setting up and authoring self-hosted H5P chapter-review questions, and their PDF/print fallback text |

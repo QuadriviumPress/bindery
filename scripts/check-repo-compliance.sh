@@ -162,22 +162,60 @@ if [[ -f "$REPO_PATH/package.json" ]]; then
   fi
 
   if [[ "$FORMAT" == "myst" ]]; then
-    jq -e '.private == true' "$REPO_PATH/package.json" >/dev/null 2>&1 \
-      && pass "package.json is private" \
-      || fail "MyST package.json must set private: true"
-    myst_version="$(jq -r '.devDependencies.mystmd // .dependencies.mystmd // ""' "$REPO_PATH/package.json")"
-    [[ "$myst_version" == "1.10.1" ]] \
-      && pass "mystmd is pinned exactly to 1.10.1" \
-      || fail "mystmd must be pinned exactly to 1.10.1 (found '${myst_version:-missing}')"
-    for script in start build verify check; do
-      jq -e --arg script "$script" '.scripts[$script] | type == "string" and length > 0' \
-        "$REPO_PATH/package.json" >/dev/null 2>&1 \
-        && pass "package.json defines npm run $script" \
-        || fail "MyST package.json must define npm run $script"
-    done
+    if node -e '
+      const fs = require("fs");
+      const pkg = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+      const required = ["name","version","private","description","license","packageManager","engines","scripts","devDependencies"];
+      const optional = ["dependencies","keywords","repository","bugs","homepage","overrides"];
+      const keys = Object.keys(pkg);
+      const errors = [];
+      if (keys.slice(0, required.length).join() !== required.join()) {
+        errors.push("top-level keys must start with " + required.join(", ") + " (found " + keys.join(", ") + ")");
+      }
+      const rest = keys.slice(required.length);
+      const allowedRest = optional.filter((key) => rest.includes(key));
+      if (rest.join() !== allowedRest.join()) {
+        errors.push("optional keys must follow in this order only: " + optional.join(", ") + " (found " + (rest.join(", ") || "none") + ")");
+      }
+      if (pkg.private !== true) errors.push("private must be true");
+      if (pkg.packageManager !== "npm@10.9.8") errors.push("packageManager must be npm@10.9.8");
+      if (!pkg.engines || pkg.engines.node !== ">=22" || pkg.engines.npm !== ">=10 <11") {
+        errors.push("engines must be node >=22 and npm >=10 <11");
+      }
+      if (!pkg.devDependencies || pkg.devDependencies.mystmd !== "1.11.0") {
+        errors.push("devDependencies.mystmd must be exactly 1.11.0");
+      }
+      if (pkg.dependencies && Object.prototype.hasOwnProperty.call(pkg.dependencies, "mystmd")) {
+        errors.push("mystmd must not be listed under dependencies");
+      }
+      for (const script of ["start", "build", "verify", "check"]) {
+        if (typeof pkg.scripts?.[script] !== "string" || pkg.scripts[script].length === 0) {
+          errors.push("scripts." + script + " must be a non-empty string");
+        }
+      }
+      const check = pkg.scripts?.check || "";
+      if (!check.includes("--strict") || !check.includes("--check-links")) {
+        errors.push("scripts.check must include --strict and --check-links");
+      }
+      if (errors.length) {
+        console.error(errors.join("\n"));
+        process.exit(1);
+      }
+    ' "$REPO_PATH/package.json"; then
+      pass "package.json matches the MyST baseline"
+    else
+      fail "package.json does not match doc/myst-baseline.md"
+    fi
     [[ -f "$REPO_PATH/package-lock.json" ]] \
       && pass "package-lock.json present" \
       || fail "MyST repo must commit package-lock.json"
+    if [[ -f "$REPO_PATH/AGENTS.md" ]] \
+       && grep -q '^## Intentional differences' "$REPO_PATH/AGENTS.md" \
+       && grep -q '^## Presentation gap' "$REPO_PATH/AGENTS.md"; then
+      pass "AGENTS.md records differences and the presentation gap"
+    else
+      fail "MyST repo must have AGENTS.md with Intentional differences and Presentation gap sections"
+    fi
   fi
 fi
 
