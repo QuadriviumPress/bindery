@@ -148,8 +148,11 @@ Scripts assume `bindery` lives beside member repos in a shared workspace; set
   OpenPhysics/Baton's `fleet`).
 - **Compliance audit** -- weekly via `shared-compliance-check.yml` (above).
 - **Build health** -- [`fleet-health.yml`](.github/workflows/fleet-health.yml) runs weekly,
-  fanning out one job per active book using its catalog `build` recipe. Read-only; surfaces
-  books broken by an upstream dependency bump before the live site goes stale.
+  fanning out one job per active book using its catalog `build` recipe. The job checks out
+  submodules, installs TeX figure tools when `scripts/convert-figures.js` is present, and
+  installs `requirements.txt` (including a `python3` kernel) so the recipe matches each
+  book's own deploy. Read-only; surfaces books broken by an upstream dependency bump
+  before the live site goes stale.
 - **Book index** -- `scripts/generate-pages-index.sh` regenerates `docs/index.html` from the
   catalog; `bindery-selfcheck.yml` fails CI if it's out of date with a committed change to
   `structure/repos.json`.

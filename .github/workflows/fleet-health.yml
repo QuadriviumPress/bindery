@@ -34,6 +34,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: QuadriviumPress/${{ matrix.book.name }}
+          submodules: recursive
+
+      # LaTeX books convert EPS figures with dvisvgm and treat a missing
+      # binary as fatal in CI. MyST and OpenStax books skip this step.
+      - name: Install TeX figure tools
+        if: hashFiles('scripts/convert-figures.js') != ''
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ghostscript dvisvgm mupdf-tools lmodern texlive-font-utils \
+            texlive-binaries texlive-base
 
       - uses: actions/setup-node@v4
         if: hashFiles('package.json') != ''
@@ -45,6 +56,18 @@ jobs:
         if: hashFiles('requirements.txt', 'pyproject.toml') != ''
         with:
           python-version: "3.12"
+
+      - name: Install Python dependencies
+        if: hashFiles('requirements.txt') != ''
+        run: pip install -r requirements.txt
+
+      # Executable notebooks look up a user kernel named python3.
+      - name: Register ipykernel
+        if: hashFiles('requirements.txt') != ''
+        run: |
+          if python -c "import ipykernel" 2>/dev/null; then
+            python -m ipykernel install --user --name python3 --display-name "Python 3"
+          fi
 
       - name: Install
         run: ${{ matrix.book.installCommand }}
