@@ -36,15 +36,27 @@ jobs:
           repository: QuadriviumPress/${{ matrix.book.name }}
           submodules: recursive
 
-      # LaTeX books convert EPS figures with dvisvgm and treat a missing
-      # binary as fatal in CI. MyST and OpenStax books skip this step.
+      # LaTeX books treat a missing figure toolchain as fatal in CI.
+      # EPS converters need dvisvgm; TikZ books also need pdflatex.
+      # MyST and OpenStax books skip this step.
       - name: Install TeX figure tools
         if: hashFiles('scripts/convert-figures.js') != ''
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            ghostscript dvisvgm mupdf-tools lmodern texlive-font-utils \
-            texlive-binaries texlive-base
+          if grep -q pdflatex scripts/convert-figures.js; then
+            sudo apt-get install -y --no-install-recommends \
+              ghostscript dvisvgm mupdf-tools lmodern texlive-font-utils \
+              texlive-latex-base texlive-latex-recommended \
+              texlive-fonts-recommended texlive-latex-extra texlive-pictures \
+              texlive-metapost
+          else
+            sudo apt-get install -y --no-install-recommends \
+              ghostscript dvisvgm mupdf-tools lmodern texlive-font-utils \
+              texlive-binaries texlive-base
+          fi
+          if [ -d vendor/texmf ]; then
+            mktexlsr "$PWD/vendor/texmf"
+          fi
 
       - uses: actions/setup-node@v4
         if: hashFiles('package.json') != ''
@@ -71,6 +83,16 @@ jobs:
 
       - name: Install
         run: ${{ matrix.book.installCommand }}
+
+      # Corral Eleventy books gitignore MathJax and MiniSearch and copy them
+      # from node_modules before a real deploy.
+      - name: Refresh vendored front-end assets
+        run: |
+          if [ -f package.json ] && node -e "process.exit(require('./package.json').scripts?.['update:vendor'] ? 0 : 1)"; then
+            npm run update:vendor
+          else
+            echo "No update:vendor script."
+          fi
 
       - name: Build
         run: ${{ matrix.book.buildCommand }}
