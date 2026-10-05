@@ -41,6 +41,23 @@ These four names exist in every book. Command bodies match the template unless
 - `verify` — book-specific fast checks. Do not merge verifiers across books.
 - `check` — `npm run verify && myst build --html --strict --check-links`
 
+`myst.yml` keeps that check, and stops remote fetches from failing it. CI hosts
+often answer 403, 404, or 5xx to the checker when the page is fine in a
+browser, and doi.org's citation lookup fails intermittently. Every book
+ignores those two cases:
+
+```yaml
+error_rules:
+  - rule: link-resolves
+    severity: ignore
+    keys:
+      - "{http,https}://**"
+  - rule: doi-link-valid
+    severity: ignore
+```
+
+Internal links and missing files still fail `--strict --check-links`.
+
 Key order inside `scripts`:
 
 1. `check:toolchain`, then `h5p:*`

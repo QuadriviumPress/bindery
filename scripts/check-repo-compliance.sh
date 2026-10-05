@@ -143,6 +143,12 @@ case "$FORMAT" in
       else
         fail "myst.yml must declare project.open_access: true"
       fi
+      if grep -q '{http,https}://\*\*' "$REPO_PATH/myst.yml" \
+         && grep -q 'doi-link-valid' "$REPO_PATH/myst.yml"; then
+        pass "myst.yml ignores flaky external link checks"
+      else
+        fail "myst.yml must ignore external link-resolves ({http,https}://**) and doi-link-valid"
+      fi
     fi
     ;;
   eleventy)
