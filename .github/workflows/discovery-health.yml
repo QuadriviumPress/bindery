@@ -23,7 +23,7 @@ jobs:
         with:
           repository: QuadriviumPress/QuadriviumPress.github.io
           path: QuadriviumPress.github.io
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Check public catalogs against the canonical metadata
