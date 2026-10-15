@@ -4,7 +4,7 @@ Run everyday git operations across **every QuadriviumPress repo checked out loca
 clones that live beside `bindery` in the workspace (`pull all`, `push all`, `status all`, …).
 
 Named `quire` (a gathered set of sheets ready for binding) so it can sit on your `PATH`
-alongside [OpenPhysics/Baton](https://github.com/OpenPhysics/Baton)'s `fleet`.
+alongside [OpenLyceum/Baton](https://github.com/OpenLyceum/Baton)'s `fleet`.
 
 ## The short version
 

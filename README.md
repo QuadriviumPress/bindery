@@ -4,7 +4,7 @@ Orchestration repository for the [QuadriviumPress](https://github.com/Quadrivium
 organization. Bindery owns the **operational** side of the org: the reusable CI/CD
 workflows every book calls, the machine-readable repository catalog, cross-repo fleet
 scripts, and the GitHub Pages book index. Modeled on
-[OpenPhysics/Baton](https://github.com/OpenPhysics/Baton), which does the same job for
+[OpenLyceum/Baton](https://github.com/OpenLyceum/Baton), which does the same job for
 QuadriviumPress's sister org of interactive physics simulations -- see
 [`CONVENTIONS.md`](CONVENTIONS.md) for what didn't (yet) come along for the ride.
 
@@ -145,7 +145,7 @@ Scripts assume `bindery` lives beside member repos in a shared workspace; set
   every local catalog checkout (`quire push`, `quire pull --ff-only`, `quire status -s`).
   Cheat sheet: [`doc/quire-git.md`](doc/quire-git.md). Symlink onto `PATH` with
   `ln -sfn ~/QuadriviumPress/bindery/scripts/quire ~/.local/bin/quire` (coexists with
-  OpenPhysics/Baton's `fleet`).
+  OpenLyceum/Baton's `fleet`).
 - **Compliance audit** -- weekly via `shared-compliance-check.yml` (above).
 - **Build health** -- [`fleet-health.yml`](.github/workflows/fleet-health.yml) runs weekly,
   fanning out one job per active book using its catalog `build` recipe. The job checks out
