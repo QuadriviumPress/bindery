@@ -101,7 +101,7 @@ jobs:
 
       - name: Setup Typst
         if: inputs.setup-typst
-        uses: typst-community/setup-typst@v4
+        uses: typst-community/setup-typst@v5
         with:
           typst-version: ${{ inputs.typst-version }}
 
