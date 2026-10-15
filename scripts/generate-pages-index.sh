@@ -24,7 +24,7 @@ lineage_label() {
   case "$1" in
     original) echo "Original edition" ;;
     openstax-remix) echo "OpenStax remix" ;;
-    public-domain-adaptation) echo "Open-license adaptation" ;;
+    open-license-adaptation) echo "Open-license adaptation" ;;
     *) echo "" ;;
   esac
 }
@@ -106,7 +106,7 @@ mkdir -p "$ROOT_DIR/docs"
 </head>
 <body>
 <h1>QuadriviumPress</h1>
-<p class="subtitle">$TOTAL open textbooks, generated from <a href="../structure/repos.json">structure/repos.json</a>.</p>
+<p class="subtitle">$TOTAL open textbooks, generated from <a href="https://github.com/QuadriviumPress/bindery/blob/main/structure/repos.json">structure/repos.json</a>.</p>
 <div class="grid">
 HTML
 
@@ -116,7 +116,7 @@ HTML
 
   cat <<HTML
 </div>
-<footer>Generated from <a href="../structure/repos.json">structure/repos.json</a> by <a href="https://github.com/QuadriviumPress/bindery">bindery</a>.</footer>
+<footer>Generated from <a href="https://github.com/QuadriviumPress/bindery/blob/main/structure/repos.json">structure/repos.json</a> by <a href="https://github.com/QuadriviumPress/bindery">bindery</a>.</footer>
 </body>
 </html>
 HTML

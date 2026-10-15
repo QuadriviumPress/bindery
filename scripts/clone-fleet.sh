@@ -39,7 +39,7 @@ Filters (from structure/repos.json):
   --no-book           Only repositories with isBook=false
   --type TYPE         Filter by type field
   --status STATUS     Filter by status (active|draft|wip|archived|template)
-  --lineage LINEAGE   Filter by lineage (original|openstax-remix|public-domain-adaptation)
+  --lineage LINEAGE   Filter by lineage (original|openstax-remix|open-license-adaptation)
   --only NAME         Clone a single repo by name
   --skip NAME         Exclude a repo (repeatable)
   --catalog PATH      Override path to repos.json

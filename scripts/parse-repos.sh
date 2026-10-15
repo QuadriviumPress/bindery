@@ -24,7 +24,7 @@ Filters:
   --no-book           Only non-book repositories
   --type TYPE         Filter by type (book|bundle|tool|config|site)
   --status STATUS     Filter by status (active|draft|wip|archived|template)
-  --lineage LINEAGE   Filter by lineage (original|openstax-remix|public-domain-adaptation)
+  --lineage LINEAGE   Filter by lineage (original|openstax-remix|open-license-adaptation)
   --format FORMAT     Filter by build format (myst|eleventy|jupyter-book|static-html)
   --catalog PATH      Override path to repos.json
 

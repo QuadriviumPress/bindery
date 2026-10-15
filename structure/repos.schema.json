@@ -70,7 +70,7 @@
             { "type": "null" },
             {
               "type": "string",
-              "enum": ["original", "openstax-remix", "public-domain-adaptation"]
+              "enum": ["original", "openstax-remix", "open-license-adaptation"]
             }
           ]
         },
@@ -139,7 +139,7 @@
           "then": {
             "properties": {
               "isBook": { "const": true },
-              "lineage": { "type": "string", "enum": ["original", "openstax-remix", "public-domain-adaptation"] },
+              "lineage": { "type": "string", "enum": ["original", "openstax-remix", "open-license-adaptation"] },
               "format": { "type": "string", "enum": ["myst", "eleventy", "jupyter-book", "static-html"] }
             }
           },
@@ -153,7 +153,7 @@
         },
         {
           "if": {
-            "properties": { "lineage": { "enum": ["openstax-remix", "public-domain-adaptation"] } }
+            "properties": { "lineage": { "enum": ["openstax-remix", "open-license-adaptation"] } }
           },
           "then": {
             "properties": {

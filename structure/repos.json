@@ -1,6 +1,6 @@
 {
   "$schema": "./repos.schema.json",
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "organization": "QuadriviumPress",
   "repos": [
     {
@@ -33,7 +33,7 @@
         "JSON"
       ],
       "description": "Orchestration repository for the QuadriviumPress organization: the reusable CI/CD workflows every book calls, the machine-readable repository catalog, quire and clone-fleet scripts, and the GitHub Pages book index.",
-      "deployedUrl": "https://quadriviumpress.github.io/bindery/",
+      "deployedUrl": "https://quadriviumpress.com/bindery/",
       "subjectTopics": [],
       "status": "active"
     },
@@ -129,10 +129,10 @@
       "displayName": "Optics Textbook",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
-        "author": "Aur\u00e8le J.L. Adam, Sander Konijnenberg, H. Paul Urbach, and Thomas H.A. van der Reep",
-        "title": "Interactive Optics \u2014 2nd edition",
+        "author": "Aurèle J.L. Adam, Sander Konijnenberg, H. Paul Urbach, and Thomas H.A. van der Reep",
+        "title": "Interactive Optics — 2nd edition",
         "url": "https://books.open.tudelft.nl/home/catalog/book/232",
         "license": "CC BY 4.0"
       },
@@ -184,11 +184,11 @@
       "displayName": "The Physics of Waves",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Howard Georgi",
         "title": "The Physics of Waves",
-        "url": null,
+        "url": "https://phys.libretexts.org/Bookshelves/Waves_and_Acoustics/The_Physics_of_Waves_(Goergi)",
         "license": "CC BY-NC-SA 4.0"
       },
       "format": "myst",
@@ -214,11 +214,11 @@
       "displayName": "Engineering Thermodynamics",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Olivier Cleynen",
         "title": "Engineering Thermodynamics",
-        "url": null,
+        "url": "https://thermodynamicsbook.com",
         "license": "CC BY-SA 4.0"
       },
       "format": "myst",
@@ -244,11 +244,11 @@
       "displayName": "Variational Principles in Classical Mechanics",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Douglas Cline",
         "title": "Variational Principles in Classical Mechanics",
-        "url": null,
+        "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Variational_Principles_in_Classical_Mechanics_(Cline)",
         "license": "CC BY-NC-SA 4.0"
       },
       "format": "myst",
@@ -275,7 +275,7 @@
       "displayName": "Principles of Mechanics",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Salma Alrasheed",
         "title": "Principles of Mechanics",
@@ -305,7 +305,7 @@
       "displayName": "University Physics I: Classical Mechanics",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Julio Gea-Banacloche",
         "title": "University Physics I: Classical Mechanics",
@@ -415,7 +415,7 @@
       "displayName": "Dynamics Textbook",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Lance Schonberg and Sarah Sadavoy",
         "title": "Dynamics",
@@ -446,7 +446,7 @@
       "displayName": "Essentials of Classical Mechanics",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Ryan D. Martin",
         "title": "Essentials of Classical Mechanics",
@@ -459,7 +459,7 @@
         "JavaScript"
       ],
       "description": "Eleventy web edition of Ryan D. Martin's Essentials of Classical Mechanics (LaTeX source rendered to HTML).",
-      "deployedUrl": "http://quadriviumpress.com/classicalMechanics/",
+      "deployedUrl": "https://quadriviumpress.com/classicalMechanics/",
       "subjectTopics": [
         "physics",
         "classical-mechanics"
@@ -476,11 +476,11 @@
       "displayName": "Electromagnetics Vol. 1",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Steven W. Ellingson",
         "title": "Electromagnetics Vol. 1",
-        "url": null,
+        "url": "https://doi.org/10.21061/electromagnetics-vol-1",
         "license": "CC BY-SA 4.0"
       },
       "format": "eleventy",
@@ -506,11 +506,11 @@
       "displayName": "Electromagnetics Vol. 2",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Steven W. Ellingson",
         "title": "Electromagnetics Vol. 2",
-        "url": null,
+        "url": "https://doi.org/10.21061/electromagnetics-vol-2",
         "license": "CC BY-SA 4.0"
       },
       "format": "eleventy",
@@ -536,7 +536,7 @@
       "displayName": "Energy and Human Ambitions on a Finite Planet",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Tom Murphy",
         "title": "Energy and Human Ambitions on a Finite Planet",
@@ -567,7 +567,7 @@
       "displayName": "Quantum Computing for the Quantum Curious",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Hughes et al.",
         "title": "Quantum Computing for the Quantum Curious",
@@ -597,7 +597,7 @@
       "displayName": "Atomic Physics for Everyone",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Will Raven",
         "title": "Atomic Physics for Everyone",
@@ -729,7 +729,7 @@
         "HTML"
       ],
       "description": "Eleventy HTML edition of OpenStax University Physics Volumes 1-3.",
-      "deployedUrl": "https://quadriviumpress.github.io/university-physics-bundle/",
+      "deployedUrl": "https://quadriviumpress.com/university-physics-bundle/",
       "subjectTopics": [
         "physics",
         "university-physics"
@@ -746,11 +746,11 @@
       "displayName": "Trigonometry",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Michael Corral",
         "title": "Trigonometry",
-        "url": null,
+        "url": "https://www.mecmath.net/trig/",
         "license": "CC BY-SA 4.0"
       },
       "format": "eleventy",
@@ -776,11 +776,11 @@
       "displayName": "Elementary Calculus",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Michael Corral",
         "title": "Elementary Calculus",
-        "url": null,
+        "url": "https://www.mecmath.net/calculus/",
         "license": "GNU FDL 1.3"
       },
       "format": "eleventy",
@@ -806,11 +806,11 @@
       "displayName": "Vector Calculus",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Michael Corral",
         "title": "Vector Calculus",
-        "url": null,
+        "url": "https://www.mecmath.net/",
         "license": "GNU FDL 1.2"
       },
       "format": "eleventy",
@@ -836,11 +836,11 @@
       "displayName": "Elementary Differential Equations",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "William F. Trench",
         "title": "Elementary Differential Equations",
-        "url": null,
+        "url": "https://digitalcommons.trinity.edu/mono/9/",
         "license": "CC BY-NC-SA 3.0"
       },
       "format": "eleventy",
@@ -866,8 +866,13 @@
       "displayName": "Open Music Theory",
       "type": "book",
       "isBook": true,
-      "lineage": "original",
-      "source": null,
+      "lineage": "open-license-adaptation",
+      "source": {
+        "author": "Kris P. Shaffer, Bryn Hughes, and Brian Moseley",
+        "title": "Open Music Theory",
+        "url": "https://github.com/openmusictheory/openmusictheory.github.io",
+        "license": "CC BY-SA 4.0"
+      },
       "format": "myst",
       "language": [
         "Markdown",
@@ -891,7 +896,7 @@
       "displayName": "Understanding Music Theory",
       "type": "book",
       "isBook": true,
-      "lineage": "public-domain-adaptation",
+      "lineage": "open-license-adaptation",
       "source": {
         "author": "Catherine Schmidt-Jones",
         "title": "Understanding Basic Music Theory",

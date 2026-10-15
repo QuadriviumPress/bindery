@@ -19,7 +19,7 @@ fails a repo missing both.
 
 `structure/repos.json`'s `lineage` field records provenance:
 
-- **`original`** -- wholly new QuadriviumPress work (`modernPhysics`, `opticsTextbook`,
+- **`original`** -- wholly new QuadriviumPress work (`modernPhysics`,
   `college-physics-textbook`) or a substantial enough rewrite of an earlier open edition
   that it isn't a direct adaptation (`modernClassicalMechanics` explicitly credits and
   distinguishes itself from Danny Caballero's earlier notes). `source` is `null`.
@@ -27,10 +27,12 @@ fails a repo missing both.
   `osbooks-*` upstream-reference repos, e.g. `osbooks-astronomy` feeds `astronomy`).
   `source.author` is `"OpenStax"`, `source.license` is OpenStax's
   Attribution-NonCommercial-ShareAlike terms.
-- **`public-domain-adaptation`** -- a named author's openly licensed book, adapted into a
+- **`open-license-adaptation`** -- a named author's openly licensed book, adapted into a
   QuadriviumPress edition (`thermodynamics` <- Olivier Cleynen, `mecmath-trigonometry` <-
   Michael Corral, `principlesOfMechanics` <- Salma Alrasheed, ...). `source` names the
-  author, title, and, where a canonical page or DOI exists, its URL.
+  author, title, and, where a canonical page or DOI exists, its URL. Openly
+  licensed works retain their copyright and license terms; this category does
+  not assert public-domain status.
 
 ## Filling in `source`
 

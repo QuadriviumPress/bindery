@@ -37,7 +37,7 @@ pointer-bump commits to keep in sync.
 | [`doc/codex-proofread.md`](doc/codex-proofread.md) | Fleet-wide Codex spelling/typo pass (`scripts/codex-proofread.sh`) |
 | [`config/`](config/) | Canonical Dependabot and Claude-settings templates |
 | [`structure/repos.json`](structure/repos.json) | Machine-readable catalog of org repositories |
-| [`structure/repos.schema.json`](structure/repos.schema.json) | JSON Schema for the catalog (`schemaVersion` 1.0.0) |
+| [`structure/repos.schema.json`](structure/repos.schema.json) | JSON Schema for the catalog (`schemaVersion` 1.1.0) |
 | [`CONVENTIONS.md`](CONVENTIONS.md) | Shared repo structure every book follows |
 | [`skills/`](skills/) | QuadriviumPress authoring reference docs for AI assistants |
 | [`.claude-plugin/`](.claude-plugin/) | Marketplace + plugin manifests packaging `skills/` as the `quadrivium@quadriviumpress` Claude Code plugin |
@@ -117,9 +117,27 @@ scripts/check-repo-compliance.sh /path/to/book-repo
 
 ## Repository catalog
 
+The catalog uses schema version **1.1.0**. The `open-license-adaptation`
+lineage replaces the former `public-domain-adaptation` name; adapted works
+retain their specific licenses and are not assumed to be public domain.
+
+The public homepage and GitHub profile also derive their book lists from this
+catalog. From a fleet checkout, run:
+
+```bash
+python3 bindery/scripts/generate-discovery.py
+python3 bindery/scripts/generate-discovery.py --check
+```
+
+Commit the generated changes separately in `QuadriviumPress.github.io` and
+`.github`. The generator preserves the surrounding page design and includes
+all active books with a live URL, grouped by subject. The weekly **Public
+catalog freshness** workflow reports drift between those repositories and
+the catalog. Book source links always point to the matching edition's repo.
+
 [`structure/repos.json`](structure/repos.json) lists all QuadriviumPress repositories with
 metadata: `displayName`, `type` (book/bundle/tool/config/site), `lineage` (original /
-openstax-remix / public-domain-adaptation), `source` (author/title/url/license for adapted
+openstax-remix / open-license-adaptation), `source` (author/title/url/license for adapted
 works), `format` (myst/eleventy), `deployedUrl`, `subjectTopics`, `build` recipe, and
 `status`. Schema: [`structure/repos.schema.json`](structure/repos.schema.json), validated by
 [`scripts/check-repos-catalog.sh`](scripts/check-repos-catalog.sh). Query it:

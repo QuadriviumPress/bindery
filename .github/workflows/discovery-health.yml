@@ -1,0 +1,30 @@
+name: Public catalog freshness
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: bindery
+      - uses: actions/checkout@v4
+        with:
+          repository: QuadriviumPress/.github
+          path: .github
+      - uses: actions/checkout@v4
+        with:
+          repository: QuadriviumPress/QuadriviumPress.github.io
+          path: QuadriviumPress.github.io
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check public catalogs against the canonical metadata
+        run: python3 bindery/scripts/generate-discovery.py --workspace "$GITHUB_WORKSPACE" --check
