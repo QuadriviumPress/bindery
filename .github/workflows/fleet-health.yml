@@ -58,7 +58,7 @@ jobs:
             mktexlsr "$PWD/vendor/texmf"
           fi
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: hashFiles('package.json') != ''
         with:
           node-version: "22"
