@@ -17,7 +17,7 @@ jobs:
     outputs:
       books: ${{ steps.list.outputs.books }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: list
         run: |
           books="$(jq -c '[.repos[] | select(.status == "active" and .isBook == true) | {name, installCommand: .build.installCommand, buildCommand: .build.buildCommand}]' structure/repos.json)"
@@ -31,7 +31,7 @@ jobs:
       matrix:
         book: ${{ fromJson(needs.matrix.outputs.books) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: QuadriviumPress/${{ matrix.book.name }}
           submodules: recursive

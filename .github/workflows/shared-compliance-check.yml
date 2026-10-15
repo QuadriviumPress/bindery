@@ -17,7 +17,7 @@ jobs:
     outputs:
       repos: ${{ steps.list.outputs.repos }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: list
         run: |
           repos="$(jq -c '[.repos[] | select(.status == "active") | .name]' structure/repos.json)"
@@ -32,12 +32,12 @@ jobs:
         repo: ${{ fromJson(needs.matrix.outputs.repos) }}
     steps:
       - name: Checkout bindery
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: bindery
 
       - name: Checkout ${{ matrix.repo }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: QuadriviumPress/${{ matrix.repo }}
           path: target
