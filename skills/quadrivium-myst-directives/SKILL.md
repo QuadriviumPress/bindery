@@ -1,6 +1,6 @@
 ---
 name: quadrivium-myst-directives
-description: Tabs and the {openphysics}/{phet}/{phet-legacy}/{simulation} interactive-embed directives used across QuadriviumPress MyST books. Read before adding a sidebar, tab-set, or embedded simulation to a chapter. Exercise and callout roles live in quadrivium-myst-presentation.
+description: Tabs and the {openlyceum}/{phet}/{phet-legacy}/{simulation} interactive-embed directives used across QuadriviumPress MyST books. Read before adding a sidebar, tab-set, or embedded simulation to a chapter. Exercise and callout roles live in quadrivium-myst-presentation.
 ---
 
 # MyST directives in QuadriviumPress books
@@ -24,24 +24,25 @@ limits). Not a substitute for normal prose structure.
 
 ## Interactive simulations
 
-A chapter embeds a running browser simulation with `{openphysics}`, `{phet}`,
+A chapter embeds a running browser simulation with `{openlyceum}`, `{phet}`,
 `{phet-legacy}`, or `{simulation}`, supplied by a repo's `plugins/simulation.mjs`:
 
 ````markdown
-```{openphysics} InterferometryLab
+```{openlyceum} InterferometryLab
 :label: fig:ch04-interferometry-sim
 
 Move a mirror and count fringes.
 ```
 ````
 
-- `{openphysics}` embeds a sim from [OpenPhysics](https://github.com/OpenPhysics) by repo
-  name.
+- `{openlyceum}` embeds a sim from [OpenLyceum](https://github.com/OpenLyceum) by repo
+  name (served from `openlyceum.github.io/<Repo>/`).
 - `{phet}` embeds a modern HTML5 [PhET](https://phet.colorado.edu) sim.
 - `{phet-legacy}` reaches PhET's pre-HTML5 Java sims via CheerpJ -- slow to start and
   mouse-only; use only where no HTML5 equivalent exists.
-- `{simulation}` embeds any URL that works in an iframe, for anything not from
-  OpenPhysics or PhET.
+- `{simulation}` (alias `{sim}`) embeds any URL that works in an iframe, or a
+  `provider:name` reference such as `openlyceum:SpecialRelativity`, for anything not from
+  OpenLyceum or PhET.
 
 On the website these render as a live embed. In a PDF, Word doc, exported Markdown, or
 printed page -- none of which run JavaScript -- the same figure falls back to a screenshot

@@ -75,7 +75,7 @@ See [`doc/add-book.md`](doc/add-book.md).
 
 ## Not yet built
 
-Baton (bindery's counterpart for the [OpenPhysics](https://github.com/OpenPhysics) org)
+Baton (bindery's counterpart for the [OpenLyceum](https://github.com/OpenLyceum) org)
 also has fleet-wide GitHub-settings sync, an off-GitHub GitLab mirror, PR-fan-out tooling,
 and generated screenshot thumbnails. Bindery starts without those -- add them the same way
 Baton did, incrementally, once there's an actual need across the book fleet, rather than

@@ -5,7 +5,7 @@ description: How locally-authored MyST media directives ({animation}, {audio}, {
 
 # Locally-authored media plugins
 
-`{simulation}` / `{openphysics}` / `{phet}` (see
+`{simulation}` / `{openlyceum}` / `{phet}` (see
 [`quadrivium-myst-directives`](../quadrivium-myst-directives/SKILL.md)) embed *someone else's*
 interactive content. `{animation}`, `{audio}`, `{video}`, and `{h5p}` are the sibling family for
 media the book itself owns or curates -- a locally authored looping figure, a synthesized audio
