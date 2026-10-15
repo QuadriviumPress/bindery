@@ -1,76 +1,101 @@
 ---
 name: quadrivium-build-scripts
-description: Two vendored helper scripts most MyST book repos need and the non-obvious bugs both modernPhysics and physicsOfMusic independently hit -- scripts/fetch-exports.sh's gh CLI token, and scripts/run-myst.mjs's npm-version-probe launcher for MyST 1.10.1. Read before writing either from scratch in a new book repo.
+description: Configure QuadriviumPress book build commands, reusable CI/Pages workflows, export downloads, and optional MyST launchers. Use when scaffolding tooling or diagnosing a local build that fails in CI.
 ---
 
-# Book-local build scripts
+# Book build commands and workflows
 
-Unlike `ci.yml`/`deploy.yml`, which call bindery's reusable workflows, `scripts/fetch-exports.sh`
-and `scripts/run-myst.mjs` are **vendored per repo** -- copy an existing one (e.g. from
-`modernPhysics` or `physicsOfMusic`) rather than writing either from scratch; both books
-independently reinvented, and separately re-broke, the same two fixes below on the same day.
+Read the target book's `AGENTS.md`, `package.json`, and workflows before copying
+from a peer. The shared [MyST baseline](../../doc/myst-baseline.md) defines the
+command contract; the starter implementation is `opiniatedMystmdBookTemplate`.
+Keep capability scripts in the books that need them.
 
-## `fetch-exports.sh`: `gh` needs `GH_TOKEN`, not `GITHUB_TOKEN`
+## MyST command contract
 
-Purpose: download the print editions produced by a separate `exports.yml` workflow (or fall
-back to the latest release) before the HTML build, so `myst.yml`'s `downloads:` entries resolve.
-It shells out to the `gh` CLI (`gh run list`, `gh run download`), which reads `GH_TOKEN` --
-GitHub Actions only injects `GITHUB_TOKEN` into the environment by default, and bindery's
-`deploy.yml` only maps one to the other around its *own* export-fetch step, not inside a script
-a repo runs independently (`export-smoke.yml`, a manual local run, a differently-shaped
-workflow). Every vendored `fetch-exports.sh` needs its own mapping at the top:
+- Install with `npm ci` using the committed lockfile and local `mystmd` dependency.
+  The baseline pins `mystmd` exactly to `1.11.0`, with Node >=22 and npm 10.
+  Read the baseline and current starter for dependency details; do not copy an
+  older peer's package versions over a book's newer dependency updates.
+- Provide `start`, `build`, `verify`, and `check`. `verify` contains the book's
+  fast checks; `check` combines verification and a strict HTML/link build.
+- Preserve prebuild hooks such as `h5p:prepare` and postbuild PWA setup. Calling
+  `myst build --html` directly bypasses npm lifecycle hooks; explicitly cover
+  those steps if a workflow needs a custom build command.
+- Record extra scripts, package keys, and command differences in `AGENTS.md`.
+
+Keep `--strict --check-links`. The baseline's `myst.yml` error rules ignore
+remote `link-resolves` failures for `"{http,https}://**"` and `doi-link-valid`,
+while internal links and missing local files still fail. Copy those scoped
+rules from the baseline rather than disabling link checking altogether.
+
+## Reusable CI and Pages deployment
+
+MyST callers normally use
+`QuadriviumPress/bindery/.github/workflows/{ci,deploy}.yml@main`. Read those
+files for supported inputs before adding custom workflow machinery. Both
+expose `node_modules/.bin` through `$GITHUB_PATH`, so a local `myst` works
+in subsequent plain shell steps. Do not replace the runner's entire `PATH`.
+
+A deploy caller's permissions must include all four:
+
+```yaml
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
+```
+
+`actions: read` is requested by the reusable workflow for prior export
+artifacts; a caller that restricts permissions must grant it even when its
+own book has no print editions. Deploy should run the book's verifier before
+publishing, commonly through `pre-build-command: npm run verify`. CI should
+gate on `verify`/`check`, preserving each book's chosen checks.
+
+Both workflows set `BASE_URL=/<repo>` for the job, including verification.
+Use the same environment when investigating deployment-only asset failures;
+see [media plugins](../quadrivium-media-plugins/SKILL.md) and
+[PWA setup](../quadrivium-pwa/SKILL.md). Set `output-dir: _build/html` for
+MyST or `_site` for Eleventy.
+
+Specialized books may keep inline workflows. For Eleventy/LaTeX, match the
+book's actual Node version (typically 24), recursive source submodules,
+`update:vendor`, and figure tools. EPS needs Ghostscript/dvisvgm; TikZ may
+also need pdflatex and TeX packages. The weekly
+[fleet-health workflow](../../.github/workflows/fleet-health.yml) demonstrates
+those distinctions. Executable notebooks may need a registered `python3`
+ipykernel. A successful dependency install alone does not supply these tools.
+
+## `fetch-exports.sh`: credentials and complete artifacts
+
+For books with separate print builds, copy this script from a current peer
+such as `modernPhysics` or `physicsOfMusic`. Match `GITHUB_REPOSITORY`,
+workflow name, artifact names, release patterns, and expected filenames to
+the target book. The script fetches the latest successful `exports.yml`
+artifacts, then falls back to a release; it should accept only a complete
+export set. See [print exports](../quadrivium-print-exports/SKILL.md).
+
+Bindery maps `GH_TOKEN` in the deploy pre-build hook. A script used elsewhere
+still needs credentials supplied by its caller or this compatibility mapping:
 
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# `gh` requires GH_TOKEN; Actions exposes GITHUB_TOKEN by default.
 export GH_TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
 ```
 
-Both `modernPhysics` and `physicsOfMusic` shipped without this line, then added it in an
-identically-worded commit ("Map GITHUB_TOKEN to GH_TOKEN in fetch-exports") once CI's `gh run
-list` started failing with an auth error. Include the line when first vendoring the script.
+Actions tokens are available through the `github.token` context; shell steps
+must explicitly receive them. Do not assume Actions automatically exports a
+`GITHUB_TOKEN` environment variable. Keep token values out of logs.
 
-## `run-myst.mjs`: MyST 1.10.1's broken npm probe
+## `run-myst.mjs`: optional compatibility launcher
 
-MyST 1.10.1 bundles `check-node-version`, which shells out to `npm --version` from Node and
-reads its stdout to validate the toolchain. On some Node/npm combinations that nested probe
-returns exit status 0 with **empty stdout**, so MyST reports `npm Package Not Found` and exits
-before building anything -- even though the real `npm` on `PATH` works fine for every other
-purpose. `scripts/run-myst.mjs` works around it without patching MyST itself:
+`physicsOfMusic` retains a launcher for an unreliable nested `npm --version`
+probe observed with MyST 1.10.1. It resolves npm's version from
+`npm_config_user_agent` or `packageManager`, installs a temporary version-probe
+shim, and invokes the local MyST executable. The current template and
+`modernPhysics` invoke MyST directly; the launcher is not a fleet requirement.
 
-1. Resolves the actual npm version from `npm_config_user_agent` (set by npm itself when it runs
-   a script) or the `packageManager` field in `package.json`.
-2. Writes a tiny shim script to a temp dir that answers `npm --version` with that resolved
-   version and delegates every other invocation to the real npm (found via `npm_execpath` or a
-   `PATH` search).
-3. Puts that shim dir ahead of `PATH`, then execs the local `node_modules/.bin/myst` directly --
-   which also sidesteps a separate `npx`/bare-`myst` problem: `node_modules/.bin` isn't on
-   `PATH` in Bindery's plain `run:` steps, so a bare `myst` invocation there exits 127.
-
-Every build entry point should go through this launcher, not a bare `myst` or `npx myst` call --
-npm scripts, `deploy.yml`, an export-smoke workflow, and any other script that shells out to
-MyST. `physicsOfMusic`'s adoption commit ("Invoke MyST through a launcher that hands it a
-working npm probe") touched `package.json`, `deploy.yml`, `export-smoke.yml`,
-`build-exports.sh`, and `smoke-exports.py` in one pass for exactly this reason -- a launcher only
-one of several entry points goes through still leaves the other entry points exposed to the same
-failure.
-
-## Borrowing these for a new book
-
-Neither script is provided by bindery or the template -- both are copy-from-a-peer, same as
-everything else here. When scaffolding a new MyST book (or adding print exports to an existing
-one, see [`quadrivium-print-exports`](../quadrivium-print-exports/SKILL.md), which needs
-`fetch-exports.sh`):
-
-1. Copy `scripts/fetch-exports.sh` verbatim from `modernPhysics` or `physicsOfMusic` -- the
-   `GH_TOKEN` mapping at the top is the only line that matters and it's already there; only the
-   `exports.yml` workflow name and the downloaded filenames need to match the new repo.
-2. Copy `scripts/run-myst.mjs` verbatim -- it's fully generic (derives everything from
-   `package.json`/`npm_config_user_agent`, nothing book-specific). Point every build entry point
-   at it: `package.json`'s `start`/`build`/`check` scripts, `deploy.yml`, `ci.yml`'s
-   `build-command` input if it calls MyST directly, and any export workflow.
-3. Copy the matching `tests/run-myst.test.mjs` and `tests/fetch-exports.test.mjs`/equivalent
-   alongside them rather than skipping tests for "just infrastructure" -- both bugs above were
-   caught by exactly this kind of test once added, not before.
+Preserve it where the book documents that need. If the probe failure is
+reproduced in a new environment, borrow the current launcher and its tests
+from `physicsOfMusic` and cover all affected entry points, including export
+scripts. Do not add it merely to fix a missing local CLI on `PATH`; the
+reusable workflows already handle that case.

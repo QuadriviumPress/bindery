@@ -108,7 +108,13 @@ Takes the `.tex` the PDF step already produced and:
 2. Flattens `\include{ch-NN}` manually (concatenates each chapter file into the master) rather
    than trusting pandoc's own include resolution, which resolves paths relative to the working
    directory rather than the source tree.
-3. Rasterizes every referenced PDF figure to PNG, since Word has no PDF image support. Uses
+3. Sanitizes TeX that XeLaTeX accepts but pandoc rejects. The current
+   `modernPhysics/scripts/tex-to-docx.py` rewrites the nested
+   `\centerline{\rule{...}{...}}` thematic break and normalizes degree and
+   delimiter macros (`\textdegree`, `\Bigl`, `\Bigr`, `\biggl`, `\biggr`).
+   Preserve mathematical meaning and run this on the assembled body before
+   pandoc. A successful PDF build does not establish DOCX compatibility.
+4. Rasterizes every referenced PDF figure to PNG, since Word has no PDF image support. Uses
    **poppler's `pdftoppm`**, not ImageMagick, as the primary path: Ubuntu's ImageMagick policy
    refuses to read PDF at all (it delegates to Ghostscript, which the policy also blocks), so an
    ImageMagick-based rasterizer works on a developer's laptop and silently ships a Word file with

@@ -38,25 +38,33 @@ call the build can't make); `{h5p}` falls back to the question text itself (see
 
 ## BASE_URL / SITE_ROOT
 
-Every directive in this family serves its assets from a `/`-rooted path (`/animations/...`,
-`/audio/...`, `.generated/h5p` published at `/h5p/...`) because MyST resolves a `/`-prefixed
-`image`/`iframe` URL against the *project root*, not the source file's directory, and a plugin
-has no way to know which chapter file it was called from. But a project-Pages site isn't served
-at the domain root -- it's at `https://quadriviumpress.com/<repoName>/` -- so every plugin
-computes its root from `BASE_URL`, which bindery's reusable `ci.yml`/`deploy.yml` set to
-`/${{ github.event.repository.name }}` for the whole job:
+Distinguish URLs that MyST resolves as source files from URLs passed through
+to the browser. `physicsOfMusic/plugins/audio.mjs` demonstrates both:
+
+- Caption `link` nodes and fallback images use project-root source paths,
+  such as `/audio/clip.mp3` and `/images/wave.svg`. MyST finds the file and
+  applies the deployment prefix when writing its asset URL. Do not prepend
+  `/<repo>` to these source paths: that directory does not exist on disk,
+  and strict link checking will report the clips as unresolved.
+- Iframe `src` values are browser URLs that MyST does not rewrite. Prefix
+  local players and their local asset URLs with `SITE_ROOT`; e.g.
+  `/<repo>/audio-player.html`. Assets copied through `project.static_files`
+  must retain the paths the player expects.
+
+Bindery's reusable CI/deploy workflows set `BASE_URL=/<repo>` for the entire
+job. Normalize it for browser-facing paths:
 
 ```js
 const rawBaseUrl = process.env.BASE_URL || '/';
 const SITE_ROOT = rawBaseUrl === '/'
   ? ''
   : `/${ rawBaseUrl.replace( /^\/+|\/+$/g, '' ) }`;
-const ANIMATION_ROOT = `${ SITE_ROOT }/animations`;
+const PLAYER_URL = `${ SITE_ROOT }/audio-player.html`;
+const AUDIO_ROOT = '/audio'; // Source link resolved by MyST, not iframe src.
 ```
 
-Copy this pattern verbatim for a new plugin rather than inventing another way to join the base
-path -- it's identical across `animation.mjs`, `audio.mjs`, and `h5p.mjs` in both `modernPhysics`
-and `physicsOfMusic` today.
+Inspect each emitted node type before applying a base-path fix; blanket
+prefixing every URL broke the audio caption links even while the player worked.
 
 **The gotcha that broke every one of these plugins at least once:** the constant is computed
 *once, at module import time*. Bindery's `verify`/`check` pre-build step runs with

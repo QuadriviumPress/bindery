@@ -5,14 +5,16 @@ description: The directory layout every QuadriviumPress book repo follows, by bu
 
 # QuadriviumPress repo structure
 
-QuadriviumPress books are built with one of two formats. `structure/repos.json` in
+Published QuadriviumPress books use MyST or Eleventy. The fleet also contains
+source-only OpenStax CNXML mirrors and non-book infrastructure. `structure/repos.json` in
 [bindery](https://github.com/QuadriviumPress/bindery) records which one each repo uses
 (`format` field) and where its build output lands (`build.outputDir`). Full baseline: see
 [`../../CONVENTIONS.md`](../../CONVENTIONS.md).
 
 ## MyST repos
 
-Source of truth is Markdown under `chapters/` (or `front/` + `chapters/` + `back/` +
+Source of truth is Markdown under `chapters/`, `content/`, or a book-specific
+layout such as `experiments/` (or `front/` + `chapters/` + `back/` +
 `appendices/` for books with distinct front/back matter, e.g. `thermodynamics`,
 `dynamicsTextbook`). Common files at root:
 
@@ -32,7 +34,18 @@ tests/
 Build: `npm run build` -> `myst build --html` -> `_build/html`. `npm run start` runs the
 MyST dev server, `npm run verify` runs the book-specific fast checks, and
 `npm run check` is the production-equivalent verification/build entry point.
-Node 22 is the fleet floor (`engines.node` in `package.json`).
+Node 22 is the fleet floor (`engines.node` in `package.json`). Install with
+`npm ci`; use the exact `mystmd@1.11.0` baseline pin. Start new books from
+`opiniatedMystmdBookTemplate`, then borrow optional capabilities from a peer.
+The [baseline](../../doc/myst-baseline.md) specifies package key ordering,
+metadata, and scripts. Keep existing content paths and book-specific verifiers.
+
+Every MyST `AGENTS.md` has **Standard**, **Commands**, **Intentional
+differences**, and **Presentation gap** sections. Document layout and tooling
+exceptions there; baseline alignment does not require rewriting chapter prose.
+`myst.yml` includes `short_title`, `open_access: true`, and
+`github: QuadriviumPress/<repo>` alongside the other required project metadata.
+Print exports, H5P, audio, and notebook execution are optional capabilities.
 
 ## Eleventy repos
 
@@ -46,7 +59,36 @@ index.njk  pages.njk  chapter-print.njk  summary.njk  summary-json.njk  sw.njk  
 LICENSE                # ships with the repo -- see quadrivium-attribution
 ```
 
-Build: `npm run build` -> `eleventy` -> `_site`.
+Build: `npm run build` -> `eleventy` -> `_site`. Read the book's README and
+workflows for conversion steps and tools; many use Node 24, `update:vendor`,
+and figure conversion before verification.
+
+Eleventy source families are distinct:
+
+- LaTeX adaptations: preserve the upstream tree and converter; closest peers
+  include `electromagneticsVolOneTextbook` and `mecmath-trigonometry`.
+- OpenStax HTML editions: `astronomy` and the `*-bundle` books consume a
+  `source/` submodule pointing to their `osbooks-*` twin. Check out submodules
+  recursively; edit the edition or upstream source appropriate to the task.
+- Authored Markdown: `college-physics-textbook` uses `contents/` without an
+  OpenStax source submodule. Follow its own build and QA scripts.
+
+`osbooks-*` repos are source-only CNXML mirrors: do not add Pages or a site
+build. Their non-prefixed twins are the web editions.
+
+## Catalog and publication
+
+Treat the fleet root as a collection of independent clones, not a monorepo.
+Use `structure/repos.json` for catalog metadata and build recipes, checking
+the live repo tree when the catalog lags a migration. For registration, follow
+[add-book.md](../../doc/add-book.md), including catalog validation and
+regenerating `docs/index.html`.
+
+Book Pages URLs normally use `https://quadriviumpress.com/<repo>/`.
+Confirm the actual Pages configuration before claiming a book is deployed;
+a missing catalog URL alone does not prove it is unpublished. The org landing
+repo `QuadriviumPress.github.io` owns the apex site; bindery owns orchestration
+and the generated catalog index.
 
 ## Everything shares
 
@@ -55,4 +97,6 @@ Build: `npm run build` -> `eleventy` -> `_site`.
   content license (see quadrivium-attribution -- this is per-repo, not inherited).
 - `.github/workflows/ci.yml` and (if it deploys) `deploy.yml`, ideally calling bindery's
   reusable workflows (`QuadriviumPress/bindery/.github/workflows/{ci,deploy}.yml@main`)
-  rather than reimplementing checkout/setup/deploy boilerplate.
+  rather than reimplementing checkout/setup/deploy boilerplate. See
+  [build scripts](../quadrivium-build-scripts/SKILL.md) for caller permissions
+  and the inline workflows retained by specialized books.

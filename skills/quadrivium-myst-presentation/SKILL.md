@@ -11,7 +11,8 @@ New chapter prose follows this contract. The sample pages in
 embeds and tab sets stay in
 [`quadrivium-myst-directives`](../quadrivium-myst-directives/SKILL.md).
 
-Use backtick fences. Chapter files for new work are `chapters/ch-NN-slug.md`.
+Use backtick fences. New books use `chapters/ch-NN-slug.md`; in an existing
+book, follow its established content paths and numbering.
 
 ## Callouts
 
