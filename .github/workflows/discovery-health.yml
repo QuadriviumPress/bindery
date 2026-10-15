@@ -12,14 +12,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: bindery
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: QuadriviumPress/.github
           path: .github
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: QuadriviumPress/QuadriviumPress.github.io
           path: QuadriviumPress.github.io
