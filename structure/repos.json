@@ -985,6 +985,37 @@
       "deployedUrl": null,
       "subjectTopics": [],
       "status": "active"
+    },
+    {
+      "name": "introductoryChemistry",
+      "displayName": "Introductory Chemistry",
+      "type": "book",
+      "isBook": true,
+      "lineage": "open-license-adaptation",
+      "source": {
+        "author": "David W. Ball",
+        "title": "Introductory Chemistry",
+        "url": "https://saylordotorg.github.io/text_introductory-chemistry/index.html",
+        "license": "CC BY-NC-SA 3.0"
+      },
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "Python",
+        "JavaScript"
+      ],
+      "description": "MyST Markdown edition of David W. Ball's Introductory Chemistry, from the Saylor Academy HTML edition.",
+      "deployedUrl": "https://quadriviumpress.com/introductoryChemistry/",
+      "subjectTopics": [
+        "chemistry",
+        "introductory-chemistry"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run build",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
     }
   ]
 }
