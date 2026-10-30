@@ -1,7 +1,9 @@
 > The fleet pin and package contract in this survey are superseded by
-> [`myst-baseline.md`](myst-baseline.md). New books copy
-> `opiniatedMystmdBookTemplate`. This page remains a snapshot of the
-> September 2026 review.
+> [`myst-baseline.md`](myst-baseline.md). The Node floor is 26
+> (`engines.node` `>=26` in member repos, and the same major in Bindery CI).
+> Statements below that cite Node 20, Node 22, or `>=22` describe the
+> September 2026 review. New books copy `opiniatedMystmdBookTemplate`.
+> This page remains a snapshot of that review.
 
 ## Result
 

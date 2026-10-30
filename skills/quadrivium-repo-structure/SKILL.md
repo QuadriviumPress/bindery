@@ -60,7 +60,7 @@ LICENSE                # ships with the repo -- see quadrivium-attribution
 ```
 
 Build: `npm run build` -> `eleventy` -> `_site`. Read the book's README and
-workflows for conversion steps and tools; many use Node 24, `update:vendor`,
+workflows for conversion steps and tools. They use Node 26, `update:vendor`,
 and figure conversion before verification.
 
 Eleventy source families are distinct:
