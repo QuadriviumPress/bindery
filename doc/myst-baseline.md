@@ -18,8 +18,8 @@ Top-level keys, always present and in this order:
 3. `private` (`true`)
 4. `description`
 5. `license` (SPDX id; the template uses `MIT` for starter code)
-6. `packageManager` (`npm@10.9.8`)
-7. `engines` (`node` `>=26`, `npm` `>=10 <11`)
+6. `packageManager` (`npm@11.20.0`)
+7. `engines` (`node` `>=26`, `npm` `>=11 <12`)
 8. `scripts`
 9. `devDependencies`
 
@@ -27,8 +27,8 @@ Optional keys may follow, only in this order: `dependencies`, `keywords`,
 `repository`, `bugs`, `homepage`, `overrides`. Name every optional key in
 `AGENTS.md`.
 
-`mystmd` is an exact `devDependencies` pin at `1.11.0`. When the book uses
-them, `sharp` stays at `0.35.4` and `yaml` at `2.9.1`. DevDependency order is
+`mystmd` is an exact `devDependencies` pin at `1.12.0`. When the book uses
+them, `sharp` stays at `0.35.5` and `yaml` at `2.9.1`. DevDependency order is
 `mystmd`, `sharp`, `yaml`, then any other packages alphabetically.
 
 ## Scripts

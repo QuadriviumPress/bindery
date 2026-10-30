@@ -167,6 +167,24 @@ if [[ -f "$REPO_PATH/package.json" ]]; then
     warn "package.json has no engines.node pin (fleet standard: >=26)"
   fi
 
+  pm="$(jq -r '.packageManager // ""' "$REPO_PATH/package.json")"
+  if [[ "$pm" == "npm@11.20.0" ]]; then
+    pass "package.json pins npm@11.20.0"
+  elif [[ "$FORMAT" != "myst" && -n "$pm" ]]; then
+    warn "package.json packageManager is '$pm' (fleet standard: npm@11.20.0)"
+  elif [[ "$FORMAT" != "myst" ]]; then
+    warn "package.json has no packageManager pin (fleet standard: npm@11.20.0)"
+  fi
+
+  npm_range="$(jq -r '.engines.npm // ""' "$REPO_PATH/package.json")"
+  if [[ "$npm_range" == ">=11 <12" ]]; then
+    pass "package.json declares the npm 11 fleet range"
+  elif [[ "$FORMAT" != "myst" && -n "$npm_range" ]]; then
+    warn "package.json engines.npm is '$npm_range' (fleet standard: >=11 <12)"
+  elif [[ "$FORMAT" != "myst" ]]; then
+    warn "package.json has no engines.npm pin (fleet standard: >=11 <12)"
+  fi
+
   if [[ "$FORMAT" == "myst" ]]; then
     if node -e '
       const fs = require("fs");
@@ -184,12 +202,15 @@ if [[ -f "$REPO_PATH/package.json" ]]; then
         errors.push("optional keys must follow in this order only: " + optional.join(", ") + " (found " + (rest.join(", ") || "none") + ")");
       }
       if (pkg.private !== true) errors.push("private must be true");
-      if (pkg.packageManager !== "npm@10.9.8") errors.push("packageManager must be npm@10.9.8");
-      if (!pkg.engines || pkg.engines.node !== ">=26" || pkg.engines.npm !== ">=10 <11") {
-        errors.push("engines must be node >=26 and npm >=10 <11");
+      if (pkg.packageManager !== "npm@11.20.0") errors.push("packageManager must be npm@11.20.0");
+      if (!pkg.engines || pkg.engines.node !== ">=26" || pkg.engines.npm !== ">=11 <12") {
+        errors.push("engines must be node >=26 and npm >=11 <12");
       }
-      if (!pkg.devDependencies || pkg.devDependencies.mystmd !== "1.11.0") {
-        errors.push("devDependencies.mystmd must be exactly 1.11.0");
+      if (!pkg.devDependencies || pkg.devDependencies.mystmd !== "1.12.0") {
+        errors.push("devDependencies.mystmd must be exactly 1.12.0");
+      }
+      if (pkg.devDependencies && Object.prototype.hasOwnProperty.call(pkg.devDependencies, "sharp") && pkg.devDependencies.sharp !== "0.35.5") {
+        errors.push("devDependencies.sharp must be exactly 0.35.5");
       }
       if (pkg.dependencies && Object.prototype.hasOwnProperty.call(pkg.dependencies, "mystmd")) {
         errors.push("mystmd must not be listed under dependencies");

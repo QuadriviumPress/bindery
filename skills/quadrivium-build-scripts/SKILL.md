@@ -13,7 +13,7 @@ Keep capability scripts in the books that need them.
 ## MyST command contract
 
 - Install with `npm ci` using the committed lockfile and local `mystmd` dependency.
-  The baseline pins `mystmd` exactly to `1.11.0`, with Node >=26 and npm 10.
+  The baseline pins `mystmd` exactly to `1.12.0`, with Node >=26 and npm 11.20.0.
   Read the baseline and current starter for dependency details; do not copy an
   older peer's package versions over a book's newer dependency updates.
 - Provide `start`, `build`, `verify`, and `check`. `verify` contains the book's

@@ -45,14 +45,16 @@ detail lives in [`skills/quadrivium-repo-structure/SKILL.md`](skills/quadrivium-
   [`config/dependabot-npm.yml`](config/dependabot-npm.yml) / [`config/dependabot-pip.yml`](config/dependabot-pip.yml)
   for the canonical templates.
 - If the repo is Node-based, `package.json` declares `engines.node` (fleet floor: `>=26`,
-  matching the `node-version` default in `ci.yml` / `deploy.yml`).
+  matching the `node-version` default in `ci.yml` / `deploy.yml`), `engines.npm`
+  (`>=11 <12`), and `packageManager` (`npm@11.20.0`, the npm release shipped with
+  current Node 26).
 
 ## MyST contract
 
 Every active MyST book additionally provides:
 
 - `package.json` and `AGENTS.md` matching [`doc/myst-baseline.md`](doc/myst-baseline.md):
-  `private: true`, exact `mystmd@1.11.0` in `devDependencies`, and `start`,
+  `private: true`, exact `mystmd@1.12.0` in `devDependencies`, and `start`,
   `build`, `verify`, and `check` scripts. `verify` runs fast structural,
   conversion, execution, or content checks appropriate to that book; `check`
   is the production-equivalent verification and HTML build. New books start

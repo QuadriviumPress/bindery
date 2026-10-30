@@ -4,6 +4,11 @@
   "private": true,
   "type": "module",
   "description": "Tooling for the QuadriviumPress org orchestration repo (bindery): repo catalog helpers and the Pages book index.",
+  "packageManager": "npm@11.20.0",
+  "engines": {
+    "node": ">=26",
+    "npm": ">=11 <12"
+  },
   "scripts": {
     "pages": "bash scripts/generate-pages-index.sh",
     "catalog:check": "bash scripts/check-repos-catalog.sh",

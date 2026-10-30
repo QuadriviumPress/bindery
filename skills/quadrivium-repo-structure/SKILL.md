@@ -34,8 +34,9 @@ tests/
 Build: `npm run build` -> `myst build --html` -> `_build/html`. `npm run start` runs the
 MyST dev server, `npm run verify` runs the book-specific fast checks, and
 `npm run check` is the production-equivalent verification/build entry point.
-Node 26 is the fleet floor (`engines.node` in `package.json`). Install with
-`npm ci`; use the exact `mystmd@1.11.0` baseline pin. Start new books from
+Node 26 and npm 11.20.0 are the fleet floor (`engines` and `packageManager`
+in `package.json`). Install with `npm ci`; use the exact `mystmd@1.12.0`
+baseline pin. Start new books from
 `opiniatedMystmdBookTemplate`, then borrow optional capabilities from a peer.
 The [baseline](../../doc/myst-baseline.md) specifies package key ordering,
 metadata, and scripts. Keep existing content paths and book-specific verifiers.

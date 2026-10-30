@@ -108,8 +108,10 @@ entry in `structure/repos.json` (`build.outputDir`) rather than guessing.
 and on manual dispatch: it reads `structure/repos.json`, clones each active repo, and runs
 [`scripts/check-repo-compliance.sh`](scripts/check-repo-compliance.sh). It **fails** a repo
 missing a README title or a documented content license, and **warns** (without failing) on
-migration gaps -- not yet calling bindery's reusable `ci.yml`/`deploy.yml`, a missing
-`engines.node` pin -- since a repo with its own working CI still ships fine. Run locally:
+migration gaps -- not yet calling bindery's reusable `ci.yml`/`deploy.yml`, or a
+missing Node/npm pin -- since a repo with its own working CI still ships fine.
+MyST books **fail** when `package.json` drifts from the baseline, including
+`packageManager` `npm@11.20.0`. Run locally:
 
 ```bash
 scripts/check-repo-compliance.sh /path/to/book-repo
@@ -180,5 +182,6 @@ Scripts assume `bindery` lives beside member repos in a shared workspace; set
 
 The fleet's Node floor is **`26`**, the same major OpenLyceum uses. It is the default
 in `ci.yml`, `deploy.yml`, and `fleet-health.yml`. Node-based member repos declare
-`engines.node: ">=26"`. A workflow that calls `actions/setup-node` directly, and any
-`.nvmrc` or `.node-version`, uses that same major.
+`engines.node: ">=26"`, `engines.npm: ">=11 <12"`, and `packageManager: "npm@11.20.0"`
+(the npm release that ships with current Node 26). A workflow that calls
+`actions/setup-node` directly, and any `.nvmrc` or `.node-version`, uses that same major.
