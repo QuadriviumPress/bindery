@@ -9,8 +9,10 @@ on:
   workflow_call:
     inputs:
       node-version:
+        # Fleet Node major. Keep in sync with deploy.yml and fleet-health.yml.
+        # See README.md ("Node version").
         type: string
-        default: "22"
+        default: "26"
       python-version:
         type: string
         default: "3.12"

@@ -159,12 +159,12 @@ esac
 # Node engines pin, when the repo is Node-based
 if [[ -f "$REPO_PATH/package.json" ]]; then
   node_range="$(jq -r '.engines.node // ""' "$REPO_PATH/package.json")"
-  if [[ "$node_range" == ">=22" || "$node_range" == "22.x" ]]; then
-    pass "package.json declares the Node 22 fleet floor"
+  if [[ "$node_range" == ">=26" || "$node_range" == "26.x" ]]; then
+    pass "package.json declares the Node 26 fleet floor"
   elif [[ -n "$node_range" ]]; then
-    warn "package.json engines.node is '$node_range' (fleet standard: >=22 or 22.x)"
+    warn "package.json engines.node is '$node_range' (fleet standard: >=26 or 26.x)"
   else
-    warn "package.json has no engines.node pin (fleet standard: >=22)"
+    warn "package.json has no engines.node pin (fleet standard: >=26)"
   fi
 
   if [[ "$FORMAT" == "myst" ]]; then
@@ -185,8 +185,8 @@ if [[ -f "$REPO_PATH/package.json" ]]; then
       }
       if (pkg.private !== true) errors.push("private must be true");
       if (pkg.packageManager !== "npm@10.9.8") errors.push("packageManager must be npm@10.9.8");
-      if (!pkg.engines || pkg.engines.node !== ">=22" || pkg.engines.npm !== ">=10 <11") {
-        errors.push("engines must be node >=22 and npm >=10 <11");
+      if (!pkg.engines || pkg.engines.node !== ">=26" || pkg.engines.npm !== ">=10 <11") {
+        errors.push("engines must be node >=26 and npm >=10 <11");
       }
       if (!pkg.devDependencies || pkg.devDependencies.mystmd !== "1.11.0") {
         errors.push("devDependencies.mystmd must be exactly 1.11.0");

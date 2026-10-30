@@ -49,7 +49,7 @@
         "Markdown",
         "JavaScript"
       ],
-      "description": "Opinionated MyST Markdown starter used to seed new QuadriviumPress textbooks (Node 22, mystmd, PWA, verify/check scripts, CI/deploy workflows).",
+      "description": "Opinionated MyST Markdown starter used to seed new QuadriviumPress textbooks (Node 26, mystmd, PWA, verify/check scripts, CI/deploy workflows).",
       "deployedUrl": null,
       "subjectTopics": [],
       "status": "template"

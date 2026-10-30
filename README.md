@@ -178,5 +178,7 @@ Scripts assume `bindery` lives beside member repos in a shared workspace; set
 
 ## Node version
 
-The fleet's Node floor is **`22`**, the default in `ci.yml` / `deploy.yml` / `fleet-health.yml`.
-Node-based member repos should declare `engines.node: ">=22"`.
+The fleet's Node floor is **`26`**, the same major OpenLyceum uses. It is the default
+in `ci.yml`, `deploy.yml`, and `fleet-health.yml`. Node-based member repos declare
+`engines.node: ">=26"`. A workflow that calls `actions/setup-node` directly, and any
+`.nvmrc` or `.node-version`, uses that same major.

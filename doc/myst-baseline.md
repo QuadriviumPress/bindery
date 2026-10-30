@@ -19,7 +19,7 @@ Top-level keys, always present and in this order:
 4. `description`
 5. `license` (SPDX id; the template uses `MIT` for starter code)
 6. `packageManager` (`npm@10.9.8`)
-7. `engines` (`node` `>=22`, `npm` `>=10 <11`)
+7. `engines` (`node` `>=26`, `npm` `>=10 <11`)
 8. `scripts`
 9. `devDependencies`
 

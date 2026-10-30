@@ -44,7 +44,7 @@ detail lives in [`skills/quadrivium-repo-structure/SKILL.md`](skills/quadrivium-
 - `.github/dependabot.yml` for Node/Python dependency updates -- see
   [`config/dependabot-npm.yml`](config/dependabot-npm.yml) / [`config/dependabot-pip.yml`](config/dependabot-pip.yml)
   for the canonical templates.
-- If the repo is Node-based, `package.json` declares `engines.node` (fleet floor: `>=22`,
+- If the repo is Node-based, `package.json` declares `engines.node` (fleet floor: `>=26`,
   matching the `node-version` default in `ci.yml` / `deploy.yml`).
 
 ## MyST contract

@@ -85,7 +85,7 @@ npm run build:exports   # == build-exports.sh all
 npm run build:pdf       # the two book PDFs only
 ```
 
-Requires Node 22, a TeX Live with XeLaTeX + latexmk, Inkscape (MyST's only supported SVG→PDF
+Requires Node 26, a TeX Live with XeLaTeX + latexmk, Inkscape (MyST's only supported SVG→PDF
 converter), and for the DOCX step: pandoc, poppler-utils, and optionally ImageMagick.
 
 The one non-obvious thing here: **the full and student PDFs both build to the single `output:`
