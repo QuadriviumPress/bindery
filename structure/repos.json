@@ -1016,6 +1016,38 @@
         "outputDir": "_build/html"
       },
       "status": "active"
+    },
+    {
+      "name": "generalChemistry",
+      "displayName": "General Chemistry: Principles, Patterns, and Applications",
+      "type": "book",
+      "isBook": true,
+      "lineage": "open-license-adaptation",
+      "source": {
+        "author": "Saylor Academy",
+        "title": "General Chemistry: Principles, Patterns, and Applications, v1.0",
+        "url": "https://saylordotorg.github.io/text_general-chemistry-principles-patterns-and-applications-v1.0/index.html",
+        "license": "CC BY-NC-SA 3.0"
+      },
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "Python",
+        "JavaScript"
+      ],
+      "description": "A complete adaptation of Saylor Academy’s general chemistry textbook: 24 chapters covering chemical reactions, atomic structure, bonding, thermodynamics, equilibrium, electrochemistry, the elements, and organic chemistry, with nine reference appendices.",
+      "deployedUrl": null,
+      "subjectTopics": [
+        "chemistry",
+        "general-chemistry",
+        "thermochemistry"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run check",
+        "outputDir": "_build/html"
+      },
+      "status": "draft"
     }
   ]
 }
