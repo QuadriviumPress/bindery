@@ -15,8 +15,11 @@ class DiscoveryTests(unittest.TestCase):
 
     def test_groups_and_exclusions(self):
         books = [self.book("Music", ["music-theory"]), self.book("Calculus", ["calculus"]),
-                 self.book("Waves", ["physics"])]
-        draft = self.book("Draft", ["physics"])
+                 self.book("Waves", ["physics"]),
+                 self.book("Introductory Chemistry", ["chemistry", "introductory-chemistry"]),
+                 self.book("General Chemistry", ["chemistry", "general-chemistry"]),
+                 self.book("Introduction to Chemistry", ["chemistry", "organic-chemistry", "biochemistry"])]
+        draft = self.book("Draft", ["chemistry"])
         draft["status"] = "draft"
         mirror = self.book("Mirror", [])
         mirror["isBook"] = False
@@ -24,7 +27,9 @@ class DiscoveryTests(unittest.TestCase):
         unpublished["deployedUrl"] = None
         groups = discovery.grouped_books({"repos": books + [draft, mirror, unpublished]})
         self.assertEqual({key: [b["name"] for b in value] for key, value in groups.items()},
-                         {"Mathematics": ["Calculus"], "Physics & Astronomy": ["Waves"], "Music": ["Music"]})
+                         {"Mathematics": ["Calculus"], "Physics & Astronomy": ["Waves"],
+                          "Chemistry": ["General Chemistry", "Introduction to Chemistry", "Introductory Chemistry"],
+                          "Music": ["Music"]})
 
     def test_matching_read_and_source_links_and_escaping(self):
         book = self.book("edition", ["physics"])

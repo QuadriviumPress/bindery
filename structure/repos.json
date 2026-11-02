@@ -1036,7 +1036,7 @@
         "JavaScript"
       ],
       "description": "A complete adaptation of Saylor Academy’s general chemistry textbook: 24 chapters covering chemical reactions, atomic structure, bonding, thermodynamics, equilibrium, electrochemistry, the elements, and organic chemistry, with nine reference appendices.",
-      "deployedUrl": null,
+      "deployedUrl": "https://quadriviumpress.com/generalChemistry/",
       "subjectTopics": [
         "chemistry",
         "general-chemistry",
@@ -1047,7 +1047,7 @@
         "buildCommand": "npm run check",
         "outputDir": "_build/html"
       },
-      "status": "draft"
+      "status": "active"
     },
     {
       "name": "generalOrganicBiologicalChemistry",

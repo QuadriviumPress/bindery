@@ -15,7 +15,9 @@ END = "<!-- END GENERATED CATALOG -->"
 
 
 def grouped_books(catalog: dict) -> dict[str, list[dict]]:
-    groups: dict[str, list[dict]] = {"Mathematics": [], "Physics & Astronomy": [], "Music": []}
+    groups: dict[str, list[dict]] = {
+        "Mathematics": [], "Physics & Astronomy": [], "Chemistry": [], "Music": []
+    }
     for book in catalog["repos"]:
         if not (book["isBook"] and book["status"] == "active" and book["deployedUrl"]):
             continue
@@ -24,6 +26,8 @@ def grouped_books(catalog: dict) -> dict[str, list[dict]]:
             group = "Music"
         elif any(topic in {"mathematics", "math", "calculus", "trigonometry", "differential-equations", "vector-calculus"} for topic in topics):
             group = "Mathematics"
+        elif "chemistry" in topics:
+            group = "Chemistry"
         else:
             group = "Physics & Astronomy"
         groups[group].append(book)
