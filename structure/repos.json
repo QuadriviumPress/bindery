@@ -1048,6 +1048,38 @@
         "outputDir": "_build/html"
       },
       "status": "draft"
+    },
+    {
+      "name": "generalOrganicBiologicalChemistry",
+      "displayName": "Introduction to Chemistry: General, Organic, and Biological",
+      "type": "book",
+      "isBook": true,
+      "lineage": "open-license-adaptation",
+      "source": {
+        "author": "2012 open-textbook edition preserved by Andy Schmitz",
+        "title": "Introduction to Chemistry: General, Organic, and Biological, v1.0",
+        "url": "https://2012books.lardbucket.org/books/introduction-to-chemistry-general-organic-and-biological/",
+        "license": "CC BY-NC-SA 3.0"
+      },
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "Python",
+        "JavaScript"
+      ],
+      "description": "A complete 20-chapter introductory textbook connecting general chemistry, organic compounds, biomolecules, and energy metabolism, with openly licensed replacement illustrations and a periodic-table appendix.",
+      "deployedUrl": "https://quadriviumpress.com/generalOrganicBiologicalChemistry/",
+      "subjectTopics": [
+        "chemistry",
+        "organic-chemistry",
+        "biochemistry"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run check",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
     }
   ]
 }
