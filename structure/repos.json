@@ -1080,6 +1080,39 @@
         "outputDir": "_build/html"
       },
       "status": "active"
+    },
+    {
+      "name": "beginningStatistics",
+      "displayName": "Beginning Statistics",
+      "type": "book",
+      "isBook": true,
+      "lineage": "open-license-adaptation",
+      "source": {
+        "author": "2012 open-textbook edition preserved by Andy Schmitz",
+        "title": "Beginning Statistics, v1.0",
+        "url": "https://2012books.lardbucket.org/books/beginning-statistics/",
+        "license": "CC BY-NC-SA 3.0"
+      },
+      "format": "myst",
+      "language": [
+        "Markdown",
+        "Python",
+        "JavaScript"
+      ],
+      "description": "A complete eleven-chapter introduction to descriptive statistics, probability, estimation, hypothesis testing, two-sample methods, regression, chi-square tests, and ANOVA, with exercises, selected answers, and statistical reference tables.",
+      "deployedUrl": "https://quadriviumpress.com/beginningStatistics/",
+      "subjectTopics": [
+        "statistics",
+        "probability",
+        "data-analysis",
+        "mathematics"
+      ],
+      "build": {
+        "installCommand": "npm ci",
+        "buildCommand": "npm run check",
+        "outputDir": "_build/html"
+      },
+      "status": "active"
     }
   ]
 }
